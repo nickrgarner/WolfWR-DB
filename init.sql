@@ -1,5 +1,13 @@
 -- Database name should be your Unity ID
-USE <unityID>; -- Change this
+USE UnityID; -- Change this
+
+CREATE TABLE Store (
+  storeID INT(9) NOT NULL,
+  managerID INT (9) NOT NULL,
+  address VARCHAR(128) NOT NULL,
+  phone VARCHAR(16) NOT NULL,
+  PRIMARY KEY(storeID, managerID)
+);
 
 CREATE TABLE Staff (
   staffID INT (9) NOT NULL,
@@ -17,19 +25,10 @@ CREATE TABLE Staff (
   CHECK(age<=100)
 );
 
-CREATE TABLE Store (
-  storeID INT(9) NOT NULL,
-  managerID INT (9) NOT NULL,
-  address VARCHAR(128) NOT NULL,
-  phone VARCHAR(16) NOT NULL,
-  FOREIGN KEY(managerID) REFERENCES Staff(staffID),
-  PRIMARY KEY(storeID, managerID)
-);
-
 CREATE TABLE SignUp (
   storeID INT (9) NOT NULL,
   signUpDate DATE NOT NULL,
-  staffID (9) NOT NULL,
+  staffID INT (9) NOT NULL,
   memberID INT(9) NOT NULL,
   FOREIGN KEY(storeID) REFERENCES Store(storeID),
   FOREIGN KEY(staffID) REFERENCES Staff(staffID),
@@ -108,6 +107,14 @@ CREATE TABLE Transaction (
   PRIMARY KEY(transactionID, productID)
 );
 
+INSERT INTO Store VALUES (
+  2000, 1001, '100 Warehouse Blvd, NC', '919-555-1872'
+), (
+  2001, 1001, '2221, B Street, NC', '919-2222-123'
+), (
+  2002, 1002, '2222, C Street, NC', '919-2222-456'
+);
+
 INSERT INTO Staff VALUES (
   1001, 2001, 'John', 32, '1101, S Street, NC', 'Manager', '919-1111-123', 'john01@gmail.com', '2018-10-10'
 ), (
@@ -116,10 +123,22 @@ INSERT INTO Staff VALUES (
   1003, 2001, 'Mary', 28, '1103, U Street, NC', 'cashier', '919-1111-789', 'mary34@gmail.com', '2019-07-19'
 );
 
-INSERT INTO Store VALUES (
-  2001, 1001, '2221, B Street, NC', '919-2222-123'
+INSERT INTO SignUp VALUES (
+  2001, '2019-08-01', 1003, 5001
 ), (
-  2002, 1002, '2222, C Street, NC', '919-2222-456'
+  2001, '2018-01-01', 1003, 5002
+);
+
+INSERT INTO Member VALUES (
+  5001, 'James', 'Smith', 'gold', 'James5001@gmail.com', '919-5555-123', '5500, E Street, NC', true, 0
+), (
+  5002, 'David', 'Smith', 'platinum', 'David5002@gmail.com', '919-5555-456', '5501 F Street, NC', true, 4.00
+);
+
+INSERT INTO Supplier VALUES (
+  4001, 'A Food Wholesale', '919-4444-123', 'afood@gmail.com', '4401, A Street, NC', 2500.00
+), (
+  4002, 'US Foods', '919-4444-456', 'usfoods@gmail.com', '4402, G Street, NC', 2500.00
 );
 
 INSERT INTO Merchandise VALUES (
@@ -134,16 +153,10 @@ INSERT INTO Merchandise VALUES (
   3003, 2001, 'CCC Red Wine', 100, 15.00, 30.00, '2021-01-01', '2022-01-01', 4002
 );
 
-INSERT INTO Supplier VALUES (
-  4001, 'A Food Wholesale', '919-4444-123', 'afood@gmail.com', '4401, A Street, NC', 2500.00
+INSERT INTO Discount VALUES (
+  7001, 3001, 20.00, '2020-01-01', '2021-05-01'
 ), (
-  4002, 'US Foods', '919-4444-456', 'usfoods@gmail.com', '4402, G Street, NC', 2500.00
-);
-
-INSERT INTO Member VALUES (
-  5001, 'James', 'Smith', 'gold', 'James5001@gmail.com', '919-5555-123', '5500, E Street, NC', true, 0
-), (
-  5002, 'David', 'Smith', 'platinum', 'David5002@gmail.com', '919-5555-456', '5501 F Street, NC', true, 4.00
+  7002, 3003, 20.00, '2021-01-01', '2021-05-01'
 );
 
 INSERT INTO Transaction VALUES (
@@ -154,16 +167,4 @@ INSERT INTO Transaction VALUES (
   6002, 2001, 5002, 1003, '2020-06-01', 3002, '10.00', 10, '100.00'
 ), (
   6003, 2001, 5001, 1003, '2020-07-01', 3001, '20.00', 10, '160.00'
-);
-
-INSERT INTO Discount VALUES (
-  7001, 3001, 20.00, '2020-01-01', '2021-05-01'
-), (
-  7002, 3003, 20.00, '2021-01-01', '2021-05-01'
-);
-
-INSERT INTO SignUp VALUES (
-  2001, '2019-08-01', 1003, 5001
-), (
-  2001, '2018-01-01', 1003, 5002
 );
