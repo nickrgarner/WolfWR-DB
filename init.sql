@@ -1,5 +1,5 @@
-CREATE DATABASE wolfwr;
-USE wolfwr;
+-- Database name should be your Unity ID
+USE <unityID>; -- Change this
 
 CREATE TABLE Staff (
   staffID INT (9) NOT NULL,
