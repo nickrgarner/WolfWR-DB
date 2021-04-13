@@ -59,7 +59,7 @@ public class MemberSQL{
         PreparedStatement ps = null;
 
         try {
-            ps = connection.prepareStatement("SELECT * FROM Member WHERE id = ?;");
+            ps = connection.prepareStatement("SELECT * FROM Member WHERE memberID = ?;");
             ps.setInt(1, memberID);
             returnSet = ps.executeQuery();
             ps.close();
@@ -84,7 +84,7 @@ public class MemberSQL{
      * @param rewardAmount
      * @throws ParseException
      */
-    static void addMember(int memberID, String firstName, String lastName, String level, String email, String phone, String address, boolean activeStatus, double rewardAmount) throws ParseException{
+    static void addMember(int memberID, String firstName, String lastName, String level, String email, String phone, String address, boolean activeStatus, double rewardAmount) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
         int id = 0;
@@ -131,7 +131,7 @@ public class MemberSQL{
      * @param rewardAmount
      * @throws ParseException
      */
-    static void editMember( int memberID,String firstName, String lastName, String level, String email, String phone, String address,  boolean activeStatus, double rewardAmount) throws ParseException{
+    static void editMember( int memberID,String firstName, String lastName, String level, String email, String phone, String address,  boolean activeStatus, double rewardAmount) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
         int id = 0;
@@ -172,7 +172,7 @@ public class MemberSQL{
      */
     static void deleteMember(int memberID){
         try {
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM Member WHERE id = ?;");
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM Member WHERE memberID = ?;");
             ps.setInt(1, memberID);
             int id = ps.executeUpdate();
 

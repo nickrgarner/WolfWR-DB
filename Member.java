@@ -49,13 +49,13 @@ public class Member{
                     viewMember();
                     break;
                 case 3:
-                    add();
+                    addMember();
                     break;
                 case 4:
-                    edit();
+                    editMember();
                     break;
                 case 5:
-                    delete();
+                    deleteMember();
                     break;
                 case 6:
                     System.out.println("Going back to Main Menu");
@@ -108,7 +108,7 @@ public class Member{
     /**
      * Method adds a member's information to database by calling the addMember in the MemberSQl file
      */
-    public static void add() throws ParseException, ClassNotFoundException, SQLException{
+    public static void addMember() throws ParseException, ClassNotFoundException, SQLException{
         //All the current attributes on the first iteration will be empty, as the user begins to fill in attributes
         //of the member the display will be updated. Before the user selects 10, all the attributes must be filled
         //so that the member can be created in the database.
@@ -137,7 +137,7 @@ public class Member{
     /**
      * Method edits a member's information to database by calling the editMember in the MemberSQl file
      */
-    public static void edit() throws ParseException, ClassNotFoundException, SQLException{
+    public static void editMember() throws ParseException, ClassNotFoundException, SQLException{
         int input = 0;
         do{
             System.out.println("In order to go back to Member Menu, enter 0");
@@ -193,7 +193,7 @@ public class Member{
     /**
      * Method deletes a member's information in the database by calling the deleteMember in the MemberSQl file
      */
-    public static void delete(){
+    public static void deleteMember(){
         do {
             System.out.println("In order to go back to Member Menu, enter 0");
             System.out.println("Please enter a member ID to delete a member");
@@ -307,9 +307,10 @@ public class Member{
                     else if(s.equals("a")){
                         MemberSQL.addMember(memberID, firstName, lastName, level, email, phone, address, activeStatus, rewardAmount);
                     }
-                } catch(ParseException e){
+                } catch(SQLException e){
                     System.out.println("SQL Exception");
                     e.getStackTrace();
+                    break;
                 }
                 rs = MemberSQL.viewMember(memberID);
                 printMember(rs);
