@@ -7,6 +7,7 @@ import java.text.ParseException;
 public class Member{
     static Scanner scan = new Scanner(System.in);
     static int input = 0;
+    static ResultSet rs = null;
 
     //Declaring and Instantiating all the attribute of a Member
     static int memberID = 0;
@@ -70,7 +71,7 @@ public class Member{
      */
     public static void viewAllMembers() throws ClassNotFoundException, SQLException, ParseException{
         try{
-            ResultSet rs = MemberSQL.viewAllMembers();
+            rs = MemberSQL.viewAllMembers();
             printMember(rs);
         }
         catch(SQLException e){
@@ -92,7 +93,7 @@ public class Member{
             scan.nextLine();
 
             if(input > 0){
-                ResultSet rs = MemberSQL.viewMember(input);
+                rs = MemberSQL.viewMember(input);
                 printMember(rs);
                 rs.close();
 
@@ -129,75 +130,7 @@ public class Member{
             input = scan.nextInt();
             scan.nextLine();
 
-            //This switch case is used to allow user to modify specific attributes of the Member.
-            //Case 10 will create the user in the database and case 11 will allow user to go back to member menu
-            switch(input){
-                case 1:
-                    System.out.println("Enter Member ID:");
-                    memberID = scan.nextInt();
-                    break;
-                case 2:
-                    System.out.println("Enter First Name:");
-                    firstName = scan.nextLine();
-                    break;
-                case 3:
-                    System.out.println("Enter Last Name:");
-                    lastName = scan.nextLine();
-                    break;
-                case 4:
-                    System.out.println("Enter Level:");
-                    level = scan.nextLine();
-                    break;
-                case 5:
-                    System.out.println("Enter Email:");
-                    email = scan.nextLine();
-                    break;
-                case 6:
-                    System.out.println("Enter Phone:");
-                    phone = scan.nextLine();
-                    break;
-                case 7:
-                    System.out.println("Enter Address:");
-                    address = scan.nextLine();
-                    break;
-                case 8:
-                    System.out.println("Enter True or False for Active Status:");
-                    activeStatus = Boolean.parseBoolean(scan.nextLine());
-                    break;
-                case 9:
-                    System.out.println("Enter Reward Amount:");
-                    rewardAmount = scan.nextDouble();
-                    break;
-                case 10:
-                    MemberSQL.addMember(memberID, firstName, lastName, level, email, phone, address, activeStatus, rewardAmount);
-                    ResultSet rs = MemberSQL.viewMember(memberID);
-                    printMember(rs);
-                    memberID = 0;
-                    firstName = "";
-                    lastName = "";
-                    level = "";
-                    email = "";
-                    phone = "";
-                    address = "";
-                    activeStatus = false;
-                    rewardAmount = 0.0;
-                    break;
-                case 11:
-                    System.out.println("Going back to Member Menu");
-                    System.out.println();
-                    memberID = 0;
-                    firstName = "";
-                    lastName = "";
-                    level = "";
-                    email = "";
-                    phone = "";
-                    address = "";
-                    activeStatus = false;
-                    rewardAmount = 0.0;
-                    break;
-                default:
-                    System.out.println("Invalid input");
-            }
+            updateAttributes(input, "a");
         } while(input != 11);
         rs.close();
     }
@@ -215,7 +148,7 @@ public class Member{
             System.out.println();
             //MemberID must be a number greater than 0 so that the application can search for that member.
             if(input > 0){
-                ResultSet rs = MemberSQL.viewMember(memberID);
+                rs = MemberSQL.viewMember(memberID);
                 //Checks if viewMember was able to find an existing Member
                 if(!rs.next()){
                     System.out.println("Member does not exist");
@@ -251,76 +184,7 @@ public class Member{
                         input = scan.nextInt();
                         scan.nextLine();
                         
-                        //Which option that the user selects, this switch statement will prompt the user for the new value.
-                        //Case 10 will take all the updated attributes and update the member in the query. Afterwards, it will
-                        //reset all the variable fields to "" , 0, or false.
-                        switch(input){
-                            case 1:
-                                System.out.println("Enter Member ID:");
-                                memberID = scan.nextInt();
-                                break;
-                            case 2:
-                                System.out.println("Enter First Name:");
-                                firstName = scan.nextLine();
-                                break;
-                            case 3:
-                                System.out.println("Enter Last Name:");
-                                lastName = scan.nextLine();
-                                break;
-                            case 4:
-                                System.out.println("Enter Level:");
-                                level = scan.nextLine();
-                                break;
-                            case 5:
-                                System.out.println("Enter Email:");
-                                email = scan.nextLine();
-                                break;
-                            case 6:
-                                System.out.println("Enter Phone:");
-                                phone = scan.nextLine();
-                                break;
-                            case 7:
-                                System.out.println("Enter Address:");
-                                address = scan.nextLine();
-                                break;
-                            case 8:
-                                System.out.println("Enter True or False for Active Status:");
-                                activeStatus = Boolean.parseBoolean(scan.nextLine());
-                                break;
-                            case 9:
-                                System.out.println("Enter Reward Amount:");
-                                rewardAmount = scan.nextDouble();
-                                break;
-                            case 10:
-                                MemberSQL.editMember(memberID, firstName, lastName, level, email, phone, address, activeStatus, rewardAmount);
-                                rs = MemberSQL.viewMember(memberID);
-                                printMember(rs);
-                                memberID = 0;
-                                firstName = "";
-                                lastName = "";
-                                level = "";
-                                email = "";
-                                phone = "";
-                                address = "";
-                                activeStatus = false;
-                                rewardAmount = 0.0;
-                                break;
-                            case 11:
-                                System.out.println("Going back to Member Menu");
-                                System.out.println();
-                                memberID = 0;
-                                firstName = "";
-                                lastName = "";
-                                level = "";
-                                email = "";
-                                phone = "";
-                                address = "";
-                                activeStatus = false;
-                                rewardAmount = 0.0;
-                                break;
-                            default:
-                                System.out.println("Invalid input");
-                        }
+                        updateAttributes(input, "e");
                     } while(input != 11);
                 }
             }
@@ -339,7 +203,7 @@ public class Member{
             input = scan.nextInt();
 
             if(input > 0){
-                Member.deleteMember(input);
+                MemberSQL.deleteMember(input);
             } else if(input < 0){
                 System.out.println("Invalid input");
             } else if (input ==0){
@@ -375,5 +239,89 @@ public class Member{
             
         }
     }
-
+    /**
+    * This method is used to reset all the variables to "", 0, or false
+    */
+    public static void resetAttributes(){
+        memberID = 0;
+        firstName = "";
+        lastName = "";
+        level = "";
+        email = "";
+        phone = "";
+        address = "";
+        activeStatus = false;
+        rewardAmount = 0.0;
+    }
+    /**
+     * From option that the user selects, this switch statement will prompt the user for the new value for 
+     * specific attribute.
+     * Case 10 will take all the updated attributes and update the member in the query. Afterwards, it will
+     * reset all the variable fields to "" , 0, or false.
+     * @param input
+     * @param s
+     */
+    public static void updateAttributes(int input, String s) throws ParseException, ClassNotFoundException, SQLException{
+        switch(input){
+            case 1:
+                System.out.println("Enter Member ID:");
+                memberID = scan.nextInt();
+                break;
+            case 2:
+                System.out.println("Enter First Name:");
+                firstName = scan.nextLine();
+                break;
+            case 3:
+                System.out.println("Enter Last Name:");
+                lastName = scan.nextLine();
+                break;
+            case 4:
+                System.out.println("Enter Level:");
+                level = scan.nextLine();
+                break;
+            case 5:
+                System.out.println("Enter Email:");
+                email = scan.nextLine();
+                break;
+            case 6:
+                System.out.println("Enter Phone:");
+                phone = scan.nextLine();
+                break;
+            case 7:
+                System.out.println("Enter Address:");
+                address = scan.nextLine();
+                break;
+            case 8:
+                System.out.println("Enter True or False for Active Status:");
+                activeStatus = Boolean.parseBoolean(scan.nextLine());
+                break;
+            case 9:
+                System.out.println("Enter Reward Amount:");
+                rewardAmount = scan.nextDouble();
+                break;
+            case 10:
+                try{
+                    if(s.equals("e")){
+                        MemberSQL.editMember(memberID, firstName, lastName, level, email, phone, address, activeStatus, rewardAmount);
+                    }
+                    else if(s.equals("a")){
+                        MemberSQL.addMember(memberID, firstName, lastName, level, email, phone, address, activeStatus, rewardAmount);
+                    }
+                } catch(ParseException e){
+                    System.out.println("SQL Exception");
+                    e.getStackTrace();
+                }
+                rs = MemberSQL.viewMember(memberID);
+                printMember(rs);
+                resetAttributes();
+                break;
+            case 11:
+                System.out.println("Going back to Member Menu");
+                System.out.println();
+                resetAttributes();
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
+    }
 }
