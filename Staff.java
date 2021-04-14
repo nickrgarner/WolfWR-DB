@@ -209,8 +209,7 @@ public class Staff {
 
   /**
    * Parses user input to allow user to set desired attribute for either INSERT or UPDATE operation.
-   * @param input User's choice of attribute to change
-   * @param s Whether we are setting attributes for add (a) or edit (e)
+   * @param mode Determines whether to "add" new tuple or "edit" existing tuple
    * @throws ClassNotFoundException
    * @throws SQLException
    * @throws ParseException

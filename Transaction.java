@@ -183,6 +183,11 @@ public class Transaction {
     } while (input != 0);
   }
 
+  /**
+   * Prints to stdout all tuples held in the static ResultSet
+   * @param rs
+   * @throws SQLException
+   */
   public static void printTransaction(ResultSet rs) throws SQLException
   {
     if (!rs.next()) {
@@ -203,6 +208,13 @@ public class Transaction {
     }
   }
 
+  /**
+   * Parses input to allow user to set desired attributes for either INSERT or UPDATE operation.
+   * @param mode Determines whether to "add" new tuple or "edit" existing tuple
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
   public static void addOrEdit(String mode) throws ClassNotFoundException, SQLException, ParseException
   {
     int input = 0;
@@ -306,8 +318,19 @@ public class Transaction {
     } while(input != 0);
   }
 
+  /**
+   * Resets Transaction attributes back to default.
+   */
   public static void resetAttributes()
   {
-
+    transactionID = -1;
+    storeID = -1;
+    memberID = -1;
+    cashierID = -1;
+    date = Date.valueOf("0001-01-01");
+    productID = -1;
+    price = -1.00;
+    quantity = -1;
+    total = -1.00;
   }
 }
