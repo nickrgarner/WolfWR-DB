@@ -12,14 +12,14 @@ public class Store {
   /** Return value of SQL queries */
   static ResultSet rs = null;
 
-  /** Staff table schema */
+  /** Store table schema */
   static int storeID = -1;
   static int managerID = -1;
   static String address = "";
   static String phone = "";
 
   /**
-   * Displays main menu for Staff table and delegates user input to Staff action methods.
+   * Displays main menu for Store table and delegates user input to Store action methods.
    * @throws ClassNotFoundException
    * @throws SQLException
    * @throws ParseException
@@ -27,7 +27,7 @@ public class Store {
   public static void storeMenu() throws ClassNotFoundException, SQLException, ParseException 
   {
     do {
-      System.out.println("Staff Menu");
+      System.out.println("Store Menu");
       System.out.println();
       System.out.println("0. Return to Main Menu");
       System.out.println("1. View All Stores");
@@ -146,7 +146,7 @@ public class Store {
   }
 
   /**
-   * Displays menu and calls SQL for deleting a Staff tuple
+   * Displays menu and calls SQL for deleting a Store tuple
    * @throws ClassNotFoundException
    * @throws SQLException
    * @throws ParseException
@@ -182,7 +182,7 @@ public class Store {
    * @param rs ResultSet containing the Store tuples to print to stdout
    * @throws SQLException
    */
-  public static void printStaff(ResultSet rs) throws SQLException 
+  public static void printStore(ResultSet rs) throws SQLException 
   {
     if (!rs.next()) {
       System.out.println("There is no Store with this storeID.");
