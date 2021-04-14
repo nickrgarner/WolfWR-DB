@@ -48,6 +48,7 @@ public class Staff {
       switch(input) {
         case 0:
           System.out.println("Going back to Main Menu");
+          scan.close();
           break;
         case 1:
           viewAllStaff();
@@ -219,7 +220,6 @@ public class Staff {
     int input = 0;
 
     if (mode.equals("edit")) {
-
       staffID = rs.getInt("staffID");
       storeID = rs.getInt("storeID");
       name = rs.getString("name");
@@ -232,7 +232,7 @@ public class Staff {
     }
 
     do {
-      System.out.println("Enter a number to " + mode + " staff attribute or enter 0 to return to Staff Menu");
+      System.out.println("Enter a number to " + mode + " staff attributes or enter 0 to return to Staff Menu");
       System.out.println("0. Return to Staff Menu");
       System.out.println("1. Staff ID: " + staffID);
       System.out.println("2. Store ID: " + storeID);
