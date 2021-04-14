@@ -15,6 +15,13 @@ public class StaffSQL {
   static Statement statement = login.statement;
   static ResultSet result = login.result;
 
+  /**
+   * Queries Staff relation for all tuples and attributes
+   * @return ResultSet containing all tuples
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
   public static ResultSet viewAllStaff() throws ClassNotFoundException, SQLException, ParseException
   {
     ResultSet returnSet = null;
@@ -31,6 +38,14 @@ public class StaffSQL {
     return returnSet;
   }
 
+  /**
+   * Queries Staff relation for tuple matching the given staffID
+   * @param staffID ID of tuple to query for
+   * @return ResultSet containing tuple matching given staffID or null
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
   public static ResultSet viewStaff(int staffID) throws ClassNotFoundException, SQLException, ParseException
   {
     ResultSet returnSet = null;

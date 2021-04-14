@@ -71,6 +71,12 @@ public class Staff {
     } while(input != 0);
   }
 
+  /**
+   * Displays menu and calls SQL for viewing all Staff tuples
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
   public static void viewAllStaff() throws ClassNotFoundException, SQLException, ParseException 
   {
     try {
@@ -81,6 +87,12 @@ public class Staff {
     }
   }
 
+  /**
+   * Displays menu and calls SQL for viewing a single Staff tuple
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
   public static void viewStaff() throws ClassNotFoundException, SQLException, ParseException {
     do {
       System.out.println("In order to go back to Staff Menu, enter 0");
@@ -104,6 +116,12 @@ public class Staff {
     } while (input != 0);
   }
 
+  /**
+   * Displays menu and calls SQL for editing a Staff tuple
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
   public static void edit() throws ClassNotFoundException, SQLException, ParseException
   {
     input = 0;
@@ -131,6 +149,12 @@ public class Staff {
     } while (input != 0);
   }
 
+  /**
+   * Displays menu and calls SQL for deleting a Staff tuple
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
   public static void delete() throws ClassNotFoundException, SQLException, ParseException
   {
     do{
@@ -157,6 +181,11 @@ public class Staff {
     } while (input != 0);
   }
 
+  /**
+   * Prints to stdout all tuples held in the static ResultSet
+   * @param rs ResultSet containing the Staff tuples to print to stdout
+   * @throws SQLException
+   */
   public static void printStaff(ResultSet rs) throws SQLException 
   {
     if (!rs.next()) {
