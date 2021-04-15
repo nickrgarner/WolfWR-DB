@@ -84,7 +84,7 @@ public class MerchandiseSQL {
      * @throws SQLException
      * @throws ParseException
      */
-    static void addMerchandise(int productID, int storeID, String name, int quantity, Double buyPrice, Double marketPrice, Date productionDate, Date expiration, int supplierID) throws SQLException, ParseException{
+    static void addMerchandise(int productID, int storeID, String name, int quantity, double buyPrice, double marketPrice, Date productionDate, Date expiration, int supplierID) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
         int id = 0;
@@ -132,7 +132,7 @@ public class MerchandiseSQL {
      * @throws SQLException
      * @throws ParseException
      */
-    static void editMember(int productID, int storeID, String name, int quantity, Double buyPrice, Double marketPrice, Date productionDate, Date expiration, int supplierID) throws SQLException, ParseException{
+    static void editMerchandise(int productID, int storeID, String name, int quantity, double buyPrice, double marketPrice, Date productionDate, Date expiration, int supplierID) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
         int id = 0;

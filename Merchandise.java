@@ -1,6 +1,6 @@
 import java.sql.*;
 import java.util.*;
-import java.io.*;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -16,8 +16,8 @@ public class Merchandise {
     static int quantity = 0;
     static double buyPrice = 0.0;
     static double marketPrice = 0.0;
-    static Date productionDate = 0000-00-00;
-    static Date expiration = 0000-00-00;
+    static Date productionDate = Date.valueOf("0001-01-01");
+    static Date expiration = Date.valueOf("0001-01-01");
     static int supplierID = 0;
 
     public static void merchandiseMenu() throws ClassNotFoundException, SQLException, ParseException{
@@ -62,11 +62,11 @@ public class Merchandise {
     }
 
     /**
-     * Method displays all members in the database
+     * Method displays all merchandise in the database
      */
     public static void viewAllMerchandise() throws ClassNotFoundException, SQLException, ParseException{
         try{
-            rs = MemberSQL.viewAllMerchandise();
+            rs = MerchandiseSQL.viewAllMerchandise();
             printMerchandise(rs);
         }
         catch(SQLException e){
@@ -75,7 +75,7 @@ public class Merchandise {
         }
     }
     /**
-     * Method displays information of a single member
+     * Method displays information of a single merchandise
      */
     public static void viewMerchandise() throws ClassNotFoundException, SQLException, ParseException {
         do{
@@ -89,7 +89,7 @@ public class Merchandise {
 
             if(input > 0){
                 rs = MerchandiseSQL.viewMerchandise(input);
-                printMember(rs);
+                printMerchandise(rs);
                 rs.close();
 
             } else if(input < 0){
@@ -101,7 +101,7 @@ public class Merchandise {
         } while(input != 0);
     }
     /**
-     * Method adds a member's information to database by calling the addMember in the MemberSQl file
+     * Method adds a merchandise's information to database by calling the addMerchandise method in the MerchandiseSQL file
      */
     public static void addMerchandise() throws ParseException, ClassNotFoundException, SQLException{
         //All the current attributes on the first iteration will be empty, as the user begins to fill in attributes
@@ -130,7 +130,7 @@ public class Merchandise {
         rs.close();
     }
     /**
-     * Method edits a member's information to database by calling the editMember in the MemberSQl file
+     * Method edits a merchandise's information to database by calling the editMerchandise in the MerchandiseSQL file
      */
     public static void editMerchandise() throws ParseException, ClassNotFoundException, SQLException{
         int input = 0;
@@ -148,17 +148,17 @@ public class Merchandise {
                 if(!rs.next()){
                     System.out.println("Merchandise does not exist");
                 } else{
-                    //The member exist and all the attributes of that member are being stored into variables so 
+                    //The merchadise exists and all the attributes of that merchandise are being stored into variables so 
                     //that they can be displayed to the user. In order for them to choose which attribute to edit.
-                    memberID = rs.getInt("memberID");
-                    firstName = rs.getString("firstName"); 
-                    lastName = rs.getString("lastName");
-                    level = rs.getString("level");
-                    email =rs.getString("email");
-                    phone = rs.getString("phone");
-                    address = rs.getString("address");
-                    activeStatus = rs.getBoolean("activeStatus");
-                    rewardAmount = rs.getDouble("rewardAmount");
+                    productID = rs.getInt("productID");
+                    storeID = rs.getInt("storeID"); 
+                    name = rs.getString("name");
+                    quantity = rs.getInt("quantity");
+                    buyPrice =rs.getDouble("buyPrice");
+                    marketPrice = rs.getDouble("marketPrice");
+                    productionDate = rs.getDate("productionDate");
+                    expiration = rs.getDate("expiration");
+                    supplierID = rs.getInt("supplierID");
                     do{
                         //Attributes are displayed to the user and they must choose which one to edit.
                         //User will be reprompted these options until they decide to go back to Merchandise Menu
@@ -187,7 +187,7 @@ public class Merchandise {
         }while(input != 0);
     }
     /**
-     * Method deletes a member's information in the database by calling the deleteMember in the MemberSQl file
+     * Method deletes a merchandise's information in the database by calling the deleteMerchandise in the MerchandiseSQL file
      */
     public static void deleteMerchandise(){
         do {
@@ -199,7 +199,7 @@ public class Merchandise {
             input = scan.nextInt();
 
             if(input > 0){
-                MerchandiseSQL.deleteMember(input);
+                MerchandiseSQL.deleteMerchandise(input);
             } else if(input < 0){
                 System.out.println("Invalid input");
             } else if (input ==0){
@@ -210,8 +210,8 @@ public class Merchandise {
     }
 
     /**
-     * Method is used in all the methods above to print out the information of a member. This method takes in 
-     * a ResultSet and then prints out all the attributes each member of the ResultSet.
+     * Method is used in all the methods above to print out the information of a merchandise. This method takes in 
+     * a ResultSet and then prints out all the attributes each merchandise of the ResultSet.
      * @param rs
      * @throws SQLException
      */
@@ -247,15 +247,15 @@ public class Merchandise {
         quantity = 0;
         buyPrice = 0.0;
         marketPrice = 0.0;
-        productionDate = 0000-00-00;
-        expiration = 0000-00-00;
+        productionDate = Date.valueOf("0001-01-01");
+        expiration = Date.valueOf("0001-01-01");
         supplierID = 0;
     }
 
     /**
      * From option that the user selects, this switch statement will prompt the user for the new value for 
      * specific attribute.
-     * Case 10 will take all the updated attributes and update the member in the query. Afterwards, it will
+     * Case 10 will take all the updated attributes and update the merchandise in the query. Afterwards, it will
      * reset all the variable fields to "" , 0, or false.
      * @param input
      * @param s
@@ -316,8 +316,8 @@ public class Merchandise {
                     e.getStackTrace();
                     break;
                 }
-                rs = MerchandiseSQL.viewMember(memberID);
-                printMember(rs);
+                rs = MerchandiseSQL.viewMerchandise(productID);
+                printMerchandise(rs);
                 resetAttributes();
                 break;
             default:

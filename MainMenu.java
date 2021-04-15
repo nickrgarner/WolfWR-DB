@@ -16,15 +16,15 @@ public class MainMenu {
         
         //This do while loop will reprompt the Main Menu options that the application can do
         do{
+            System.out.println("0. Exit");
             System.out.println("1. Information Processing");
             System.out.println("2. Maintain Inventory");
             System.out.println("3. Maintaining Billing and Transaction Records");
             System.out.println("4. Reports");
-            System.out.println("5. Exit");
 
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
-            System.out.prinln();
+            System.out.println();
             switch(input){
                 case 0:
                     System.out.println("Exiting Application");
@@ -64,10 +64,11 @@ public class MainMenu {
             System.out.println("5. Supplier");
             System.out.println("6. Discount");
             System.out.println("7. Merchandise");
+            System.out.println("8. Transaction");
 
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
-            System.out.prinln();
+            System.out.println();
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
@@ -93,6 +94,8 @@ public class MainMenu {
                 case 7:
                     Merchandise.merchandiseMenu();
                     break;
+                case 8:
+                    Transaction.transactionMenu();
                 default:
                     System.out.println("Invalid input");
                     break;
@@ -114,7 +117,7 @@ public class MainMenu {
 
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
-            System.out.prinln();
+            System.out.println();
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
@@ -167,7 +170,7 @@ public class MainMenu {
             
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
-            System.out.prinln();
+            System.out.println();
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
@@ -233,7 +236,7 @@ public class MainMenu {
             
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
-            System.out.prinln();
+            System.out.println();
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
