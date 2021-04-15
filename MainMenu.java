@@ -1,5 +1,4 @@
 import java.util.*;
-import java.io.*;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -10,42 +9,47 @@ import java.text.ParseException;
 public class MainMenu {
     static Scanner scan = new Scanner(System.in);
     static int input = 0;
-    public static void initiate() throws ClassNotFoundException, SQLException, ParseException {
-        System.out.println("Welcome to our application for WolfWR, a WolfCity  wholesale store chain");
-        System.out.println();
-        
-        //This do while loop will reprompt the Main Menu options that the application can do
-        do{
-            System.out.println("0. Exit");
-            System.out.println("1. Information Processing");
-            System.out.println("2. Maintain Inventory");
-            System.out.println("3. Maintaining Billing and Transaction Records");
-            System.out.println("4. Reports");
-
-            System.out.print("Please choose one of the options above: ");
-            input = scan.nextInt();
+    public static void initiate()
+    {
+        try {
+            System.out.println("Welcome to our application for WolfWR, a WolfCity  wholesale store chain");
             System.out.println();
-            switch(input){
-                case 0:
-                    System.out.println("Exiting Application");
-                    break;
-                case 1:
-                    informationProcessMenu();
-                    break;
-                case 2:
-                    maintainInventoryMenu();
-                    break;
-                case 3:
-                    maintainBillingTransactions();
-                    break;
-                case 4:
-                    reports();
-                    break;
-                default:
-                    System.out.println("Invalid input");
-                    break;
-            }
-        } while(input != 0);
+            
+            //This do while loop will reprompt the Main Menu options that the application can do
+            do{
+                System.out.println("0. Exit");
+                System.out.println("1. Information Processing (CRUD)");
+                System.out.println("2. Maintain Inventory");
+                System.out.println("3. Maintaining Billing and Transaction Records");
+                System.out.println("4. Reports");
+
+                System.out.print("Please choose one of the options above: ");
+                input = scan.nextInt();
+                System.out.println();
+                switch(input){
+                    case 0:
+                        System.out.println("Exiting Application");
+                        break;
+                    case 1:
+                        informationProcessMenu();
+                        break;
+                    case 2:
+                        maintainInventoryMenu();
+                        break;
+                    case 3:
+                        maintainBillingTransactions();
+                        break;
+                    case 4:
+                        reports();
+                        break;
+                    default:
+                        System.out.println("Invalid input");
+                        break;
+                }
+            } while(input != 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -53,7 +57,8 @@ public class MainMenu {
      * information about stores, customers, staff, and suppliers. 
      * Manage promotion or sale information for products.”
      */
-    public static void informationProcessMenu(){
+    public static void informationProcessMenu() throws ClassNotFoundException, ParseException, SQLException
+    {
         do{
             System.out.println("Information Processing Menu");
             System.out.println("0. Go back to Main Menu:");
@@ -80,7 +85,7 @@ public class MainMenu {
                     Staff.staffMenu();
                     break;
                 case 3:
-                    SignUp.signUpMenu();
+                    // SignUp.signUpMenu();
                     break;
                 case 4:
                     Member.memberMenu();
@@ -107,7 +112,8 @@ public class MainMenu {
      * Update inventory with returns. Manage product transfers 
      * between stores in the chain.
      */
-    public static void maintainInventoryMenu(){
+    public static void maintainInventoryMenu() throws ClassNotFoundException, ParseException, SQLException
+    {
         do{
             System.out.println("Maintain Inventory Menu");
             System.out.println("0. Go back to Main Menu:");
@@ -125,7 +131,7 @@ public class MainMenu {
                 case 1:
                     //Make a method for this operation       
                         //INSERT INTO Merchandise
-                        Merchandise.merchandiseAdd();
+                        Merchandise.addMerchandise();
                         //UPDATE Supplier with SET
                                  
                     break;
@@ -151,6 +157,7 @@ public class MainMenu {
             }
         } while(input != 0);
     }
+
     /**
      * Maintaining billing and transaction records. Create or generate bills 
      * that are to be paid to a specific supplier.  Generate reward 
@@ -158,7 +165,8 @@ public class MainMenu {
      * For each transaction, calculate the total price, check if any item is on sale or not and, 
      * if it is, apply discounts according to the discount information.
      */
-    public static void maintainBillingTransactions(){
+    public static void maintainBillingTransactions() throws ClassNotFoundException, ParseException, SQLException
+    {
         do{
             System.out.println("Maintain Billing and Transactions Menu");
             System.out.println("0. Go back to Main Menu:");
@@ -224,7 +232,8 @@ public class MainMenu {
      * store or for a certain product. Customer growth report by month or by year. 
      * Customer activity report such as total purchase amount for a given time period.
      */
-    public static void reports(){
+    public static void reports() throws ClassNotFoundException, ParseException, SQLException
+    {
         do{
             System.out.println("Reports Menu");
             System.out.println("0. Go back to Main Menu:");

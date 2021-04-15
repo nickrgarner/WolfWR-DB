@@ -1,7 +1,4 @@
 import java.sql.*;
-import java.util.*;
-import java.io.*;
-import java.sql.Date;
 import java.text.ParseException;
 import java.sql.SQLException;
 
@@ -182,49 +179,6 @@ public class MemberSQL{
         } catch (SQLException e) {
             System.out.println("SQL Exception");
             System.out.println(e.getStackTrace());
-        }
-    }
-
-    // Close functions
-    /**
-     * Closes connection object
-     * 
-     * @param connection
-     */
-    public static void close(Connection connection) {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (Throwable whatever) {
-            }
-        }
-    }
-
-    /**
-     * Closes statement objects
-     * 
-     * @param statement
-     */
-    public static void close(Statement statement) {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (Throwable whatever) {
-            }
-        }
-    }
-
-    /**
-     * Closes result objects
-     * 
-     * @param result
-     */
-    public static void close(ResultSet result) {
-        if (result != null) {
-            try {
-                result.close();
-            } catch (Throwable whatever) {
-            }
         }
     }
 }

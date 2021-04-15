@@ -1,19 +1,14 @@
 import java.sql.*;
-import java.util.*;
-import java.io.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.sql.SQLException;
 
 public class TransactionSQL {
-  private static final String JDBCURL = "";
-  private static final String USER = "";
-  private static final String PASSWORD = "";
 
   /** This connects to the database by calling the login file */
-  static Connection connection = login.connection;
-  static Statement statement = login.statement;
-  static ResultSet result = login.result;
+  static Connection connection = Login.connection;
+  static Statement statement = Login.statement;
+  static ResultSet result = Login.result;
 
   /**
    * Queries Transaction relation for all tuples and attributes
@@ -176,52 +171,6 @@ public class TransactionSQL {
       }
     } catch (SQLException e) {
       System.out.println("SQL Exception: " + e.getStackTrace());
-    }
-  }
-
-  // Close methods
-  /**
-   * Closes connection object
-   * @param connection
-   */
-  public static void close(Connection connection)
-  {
-    if (connection != null) {
-      try {
-        connection.close();
-      } catch (Throwable whatever) {
-
-      }
-    }
-  }
-
-  /**
-   * Closes statement object
-   * @param statement
-   */
-  public static void close(Statement statement)
-  {
-    if (statement != null) {
-      try {
-        statement.close();
-      } catch (Throwable whatever) {
-
-      }
-    }
-  }
-
-  /**
-   * Closes result objects
-   * @param result
-   */
-  public static void close(ResultSet result)
-  {
-    if (result != null) {
-      try {
-        result.close();
-      } catch (Throwable whatever) {
-
-      }
     }
   }
 }
