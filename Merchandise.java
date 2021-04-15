@@ -135,18 +135,18 @@ public class Merchandise {
     public static void editMerchandise() throws ParseException, ClassNotFoundException, SQLException{
         int input = 0;
         do{
-            System.out.println("In order to go back to Member Menu, enter 0");
-            System.out.println("Please enter a member ID to edit a member");
+            System.out.println("In order to go back to Merchandise Menu, enter 0");
+            System.out.println("Please enter a product ID to edit a merchandise");
 
             input = scan.nextInt();
             scan.nextLine();
             System.out.println();
-            //MemberID must be a number greater than 0 so that the application can search for that member.
+            //productID must be a number greater than 0 so that the application can search for that merchandise.
             if(input > 0){
-                rs = MemberSQL.viewMember(memberID);
-                //Checks if viewMember was able to find an existing Member
+                rs = MerchandiseSQL.viewMerchandise(productID);
+                //Checks if viewMerchandise was able to find an existing Merchandise
                 if(!rs.next()){
-                    System.out.println("Member does not exist");
+                    System.out.println("Merchandise does not exist");
                 } else{
                     //The member exist and all the attributes of that member are being stored into variables so 
                     //that they can be displayed to the user. In order for them to choose which attribute to edit.
@@ -161,7 +161,7 @@ public class Merchandise {
                     rewardAmount = rs.getDouble("rewardAmount");
                     do{
                         //Attributes are displayed to the user and they must choose which one to edit.
-                        //User will be reprompted these options until they decide to go back to Member Menu
+                        //User will be reprompted these options until they decide to go back to Merchandise Menu
                         System.out.println("0. Go back to Merchandise Menu: ");
                         System.out.println("1. Product ID: " + productID);
                         System.out.println("2. Store ID: " + storeID);
