@@ -52,7 +52,7 @@ public class DiscountSQL {
     PreparedStatement ps = null;
 
     try {
-      ps = connection.prepareStatement("SELECT * FROM Discount WHERE discountID=?");
+      ps = connection.prepareStatement("SELECT * FROM Discount WHERE discountID=?;");
       ps.setInt(1, discountID);
       returnSet = ps.executeQuery();
       ps.close();
@@ -73,7 +73,7 @@ public class DiscountSQL {
    * @throws ParseException
    * @throws SQLException
    */
-  public static void addDicount(int discountID, int productID, double priceReduction, Date startDate, Date endDate) throws ParseException, SQLException
+  public static void addDiscount(int discountID, int productID, double priceReduction, Date startDate, Date endDate) throws ParseException, SQLException
   {
     PreparedStatement ps = null;
     int id = 0;
@@ -82,8 +82,8 @@ public class DiscountSQL {
       ps = connection.prepareStatement("INSERT INTO Discount VALUES (?,?,?,?,?);");
       ps.setInt(1, discountID);
       ps.setInt(2, productID);
-      ps.setInt(3, priceReducation);
-      ps.setInt(4, startDate);
+      ps.setDouble(3, priceReduction);
+      ps.setDate(4, startDate);
       ps.setDate(5, endDate);
       id = ps.executeUpdate();
       ps.close();
@@ -110,7 +110,7 @@ public class DiscountSQL {
    * @throws ParseException
    * @throws SQLException
    */
-  public static void editDiscount(int discountID, int productID, double priceReducation, Date startDate, Date endDate) throws ParseException, SQLException
+  public static void editDiscount(int discountID, int productID, double priceReduction, Date startDate, Date endDate) throws ParseException, SQLException
   {
     PreparedStatement ps = null;
     int id = 0;

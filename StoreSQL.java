@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.sql.SQLException;
 
-public class StaffSQL {
+public class StoreSQL {
   private static final String JDBCURL = "";
   private static final String USER = "";
   private static final String PASSWORD = "";
@@ -39,14 +39,14 @@ public class StaffSQL {
   }
 
   /**
-   * Queries Staff relation for tuple matching the given staffID
+   * Queries Store relation for tuple matching the given storeID
    * @param storeID ID of tuple to query for
-   * @return ResultSet containing tuple matching given staffID or null
+   * @return ResultSet containing tuple matching given storeID or null
    * @throws ClassNotFoundException
    * @throws SQLException
    * @throws ParseException
    */
-  public static ResultSet viewStaff(int storeID) throws ClassNotFoundException, SQLException, ParseException
+  public static ResultSet viewStore(int storeID) throws ClassNotFoundException, SQLException, ParseException
   {
     ResultSet returnSet = null;
     PreparedStatement ps = null;
@@ -72,7 +72,7 @@ public class StaffSQL {
    * @throws ParseException
    * @throws SQLException
    */
-  public static void addStaff(int storeID, int managerID, String address, String phone) throws ParseException, SQLException
+  public static void addStore(int storeID, int managerID, String address, String phone) throws ParseException, SQLException
   {
     PreparedStatement ps = null;
     int id = 0;
@@ -100,7 +100,7 @@ public class StaffSQL {
   }
 
   /**
-   * Changes attribute values to given values of staff member that matches given staffID
+   * Changes attribute values to given values of store that matches given storeID
    * @param storeID ID of store to edit
    * @param managerID value to store
    * @param address value to store
@@ -108,7 +108,7 @@ public class StaffSQL {
    * @throws ParseException
    * @throws SQLException
    */
-  public static void editStaff(int storeID, int managerID, String address, String phone) throws ParseException, SQLException
+  public static void editStore(int storeID, int managerID, String address, String phone) throws ParseException, SQLException
   {
     PreparedStatement ps = null;
     int id = 0;
@@ -125,9 +125,9 @@ public class StaffSQL {
       System.out.println(id);
 
       if (id > 0) {
-        System.out.println("Staff member added successfully.");
+        System.out.println("Store added successfully.");
       } else {
-        System.out.println("Staff member not added.");
+        System.out.println("Store not added.");
       }
     } catch (SQLException e) {
       System.out.println("SQL Exception: " + e.getStackTrace());
@@ -136,23 +136,23 @@ public class StaffSQL {
   }
 
   /**
-   * Deletes staff from database that matches supplied staffID
-   * @param staffID ID of staff member to delete
+   * Deletes store from database that matches supplied storeID
+   * @param storeID ID of store member to delete
    * @throws SQLException
    */
-  public static void deleteStaff(int staffID) throws SQLException
+  public static void deleteStore(int storeID) throws SQLException
   {
     try {
-      PreparedStatement ps = connection.prepareStatement("DELETE FROM Staff WHERE staffID = ?;");
-      ps.setInt(1, staffID);
+      PreparedStatement ps = connection.prepareStatement("DELETE FROM Store WHERE storeID = ?;");
+      ps.setInt(1, storeID);
       int id = ps.executeUpdate();
 
       System.out.println(id);
 
       if (id > 0) {
-        System.out.println("Staff member deleted.");
+        System.out.println("Store deleted.");
       } else {
-        System.out.println("Staff member not deleted.");
+        System.out.println("Store not deleted.");
       }
     } catch (SQLException e) {
       System.out.println("SQL Exception: " + e.getStackTrace());

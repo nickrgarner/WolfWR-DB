@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.util.*;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -49,7 +48,7 @@ public class Store {
           viewAllStores();
           break;
         case 2:
-          viewStores();
+          viewStore();
           break;
         case 3:
           addOrEdit("add");
@@ -240,7 +239,7 @@ public class Store {
           break;
         case 2:
           System.out.println("Enter Manager ID: ");
-          managerID = scan.nextLine();
+          managerID = scan.nextInt();
           break;
         case 3:
           System.out.println("Enter Address: ");

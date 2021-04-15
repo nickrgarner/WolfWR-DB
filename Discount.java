@@ -15,7 +15,7 @@ public class Discount {
   /** Discount table schema */
   static int discountID = -1;
   static int productID = -1;
-  static double priceReduction = -1;
+  static double priceReduction = -1.00;
   static Date startDate = Date.valueOf("0001-01-01");
   static Date endDate = Date.valueOf("0001-01-01");
 
@@ -78,7 +78,7 @@ public class Discount {
   {
     try {
       ResultSet rs = DiscountSQL.viewAllDiscounts();
-      printDiscounts(rs);
+      printDiscount(rs);
     } catch(SQLException e) {
       System.out.println("SQL Exception: " + e.getMessage());
     }
@@ -254,7 +254,7 @@ public class Discount {
         case 4:
           System.out.println("Enter Start Date in format YYYY-MM-DD: ");
           try{
-            date = Date.valueOf(scan.nextLine());
+            startDate = Date.valueOf(scan.nextLine());
           } catch (IllegalArgumentException e) {
             System.out.println("Date format incorrect, please try again.");
           }
@@ -262,7 +262,7 @@ public class Discount {
         case 5:
           System.out.println("Enter End Date in format YYYY-MM-DD: ");
           try{
-            date = Date.valueOf(scan.nextLine());
+            endDate = Date.valueOf(scan.nextLine());
           } catch (IllegalArgumentException e) {
             System.out.println("Date format incorrect, please try again.");
           }
@@ -297,7 +297,7 @@ public class Discount {
   {
   discountID = -1;
   productID = -1;
-  priceReduction = -1;
+  priceReduction = -1.00;
   startDate = Date.valueOf("0001-01-01");
   endDate = Date.valueOf("0001-01-01");
   }
