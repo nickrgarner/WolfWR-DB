@@ -43,7 +43,6 @@ public class Member{
             switch(input){
                 case 6:
                     System.out.println("Going back to Main Menu");
-                    scan.close();
                     return;
                 case 1:
                     viewAllMembers();

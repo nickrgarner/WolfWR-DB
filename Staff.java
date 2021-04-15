@@ -48,7 +48,6 @@ public class Staff {
       switch(input) {
         case 0:
           System.out.println("Going back to Main Menu");
-          scan.close();
           return;
         case 1:
           viewAllStaff();
