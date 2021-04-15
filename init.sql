@@ -1,5 +1,5 @@
 -- Database name should be your Unity ID
-USE jhnguye4; -- Change this
+USE UnityUsername; -- Change this
 
 CREATE TABLE Store (
   storeID INT(9) NOT NULL,
