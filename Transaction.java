@@ -49,7 +49,7 @@ public class Transaction {
         case 0:
           System.out.println("Going back to Main Menu");
           scan.close();
-          break;
+          return;
         case 1:
           viewAllTransactions();
           break;
@@ -69,6 +69,7 @@ public class Transaction {
           System.out.println("Invalid input");
           break;
       }
+      input = -1;
     } while(input != 0);
   }
 
@@ -113,7 +114,7 @@ public class Transaction {
         System.out.println("Invalid input");
       } else if (input == 0) {
         System.out.println("Going back to Transaction Menu");
-        break;
+        return;
       }
     } while (input != 0);
   }
@@ -144,6 +145,7 @@ public class Transaction {
           addOrEdit("edit");
         }
       } else if (input == 0) {
+        System.out.println("Going back to Transaction Menu");
         return;
       } else {
         System.out.println("Invalid Transaction ID");
@@ -179,6 +181,7 @@ public class Transaction {
         System.out.println("Invalid input");
       } else if (input == 0) {
         System.out.println("Returning to Transaction Menu");
+        return;
       }
     } while (input != 0);
   }
@@ -254,7 +257,7 @@ public class Transaction {
           System.out.println("Going back to Transaction Menu");
           System.out.println();
           resetAttributes();
-          break;
+          return;
         case 1:
           System.out.println("Enter Transaction ID: ");
           transactionID = scan.nextInt();
@@ -309,8 +312,8 @@ public class Transaction {
           rs = TransactionSQL.viewTransaction(transactionID);
           printTransaction(rs);
           resetAttributes();
-          input = 0; // We're done, back to Transaction Menu
-          break;
+          input = -1; // We're done, back to Transaction Menu
+          return;
         default:
           System.out.println("Invalid input");
           break;

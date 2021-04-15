@@ -8,7 +8,7 @@ import java.text.ParseException;
  */
 public class MainMenu {
     static Scanner scan = new Scanner(System.in);
-    static int input = 0;
+    static int input = -1;
     public static void initiate()
     {
         try {
@@ -29,7 +29,7 @@ public class MainMenu {
                 switch(input){
                     case 0:
                         System.out.println("Exiting Application");
-                        break;
+                        return;
                     case 1:
                         informationProcessMenu();
                         break;
@@ -46,6 +46,7 @@ public class MainMenu {
                         System.out.println("Invalid input");
                         break;
                 }
+                input = -1;
             } while(input != 0);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +78,7 @@ public class MainMenu {
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
-                    break;
+                    return;
                 case 1:
                     Store.storeMenu();
                     break;
@@ -105,6 +106,7 @@ public class MainMenu {
                     System.out.println("Invalid input");
                     break;
             }
+            input = -1;
         } while(input != 0);
     }
     /**
@@ -127,7 +129,7 @@ public class MainMenu {
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
-                    break;
+                    return;
                 case 1:
                     //Make a method for this operation       
                         //INSERT INTO Merchandise
@@ -155,6 +157,7 @@ public class MainMenu {
                     System.out.println("Invalid input");
                     break;
             }
+            input = -1;
         } while(input != 0);
     }
 
@@ -182,7 +185,7 @@ public class MainMenu {
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
-                    break;
+                    return;
                 case 1:
                     //Make a method for this operation       
                         //SELECT amountOweed FROM Supplier WHERE Supplier = ?
@@ -222,6 +225,7 @@ public class MainMenu {
                     System.out.println("Invalid input");
                     break;
             }
+            input = -1;
         } while(input != 0);
     }
 
@@ -249,7 +253,7 @@ public class MainMenu {
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
-                    break;
+                    return;
                 case 1:
                     //Make a method for this operation       
                         // SELECT SUM(total)
@@ -321,6 +325,7 @@ public class MainMenu {
                     System.out.println("Invalid input");
                     break;
             }
+            input = -1;
         } while(input != 0);
     }
 }

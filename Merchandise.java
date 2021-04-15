@@ -6,19 +6,19 @@ import java.text.ParseException;
 
 public class Merchandise {
     static Scanner scan = new Scanner(System.in);
-    static int input = 0;
+    static int input = -1;
     static ResultSet rs = null;
 
     //Declaring and Instantiating all the attribute of a Merchandise
-    static int productID = 0;
-    static int storeID = 0;
+    static int productID = -1;
+    static int storeID = -1;
     static String name = "";
-    static int quantity = 0;
-    static double buyPrice = 0.0;
-    static double marketPrice = 0.0;
+    static int quantity = -1;
+    static double buyPrice = -1.00;
+    static double marketPrice = -1.00;
     static Date productionDate = Date.valueOf("0001-01-01");
     static Date expiration = Date.valueOf("0001-01-01");
-    static int supplierID = 0;
+    static int supplierID = -1;
 
     public static void merchandiseMenu() throws ClassNotFoundException, SQLException, ParseException{
         do{
@@ -38,7 +38,8 @@ public class Merchandise {
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
-                    break;
+                    scan.close();
+                    return;
                 case 1:
                     viewAllMerchandise();
                     break;
@@ -58,6 +59,7 @@ public class Merchandise {
                     System.out.println("Invalid input");
                     break;
             }
+            input = -1;
         } while(input != 0); 
     }
 
@@ -96,7 +98,7 @@ public class Merchandise {
                 System.out.println("Invalid input");
             } else if(input == 0){
                 System.out.println("Going back to Merchandise Menu");
-                break;
+                return;
             }
         } while(input != 0);
     }
@@ -202,9 +204,9 @@ public class Merchandise {
                 MerchandiseSQL.deleteMerchandise(input);
             } else if(input < 0){
                 System.out.println("Invalid input");
-            } else if (input ==0){
+            } else if (input == 0){
                 System.out.println("Going back to Merchandise Menu");
-                break;
+                return;
             }
         } while(input != 0);
     }
@@ -266,7 +268,7 @@ public class Merchandise {
                 System.out.println("Going back to Merchandise Menu");
                 System.out.println();
                 resetAttributes();
-                break;
+                return;
             case 1:
                 System.out.println("Enter Product ID:");
                 productID = scan.nextInt();

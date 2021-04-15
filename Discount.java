@@ -45,7 +45,7 @@ public class Discount {
         case 0:
           System.out.println("Going back to Main Menu");
           scan.close();
-          break;
+          return;
         case 1:
           viewAllDiscounts();
           break;
@@ -65,6 +65,7 @@ public class Discount {
           System.out.println("Invalid input");
           break;
       }
+      input = -1;
     } while(input != 0);
   }
 
@@ -109,7 +110,7 @@ public class Discount {
         System.out.println("Invalid input");
       } else if (input == 0) {
         System.out.println("Going back to Discount Menu");
-        break;
+        return;
       }
     } while (input != 0);
   }
@@ -140,6 +141,7 @@ public class Discount {
           addOrEdit("edit");
         }
       } else if (input == 0) {
+        System.out.println("Going back to Discount Menu");
         return;
       } else {
         System.out.println("Invalid Discount ID");
@@ -175,6 +177,7 @@ public class Discount {
         System.out.println("Invalid input");
       } else if (input == 0) {
         System.out.println("Returning to Discount Menu");
+        return;
       }
     } while (input != 0);
   }
@@ -209,7 +212,7 @@ public class Discount {
    */
   public static void addOrEdit(String mode) throws ClassNotFoundException, SQLException, ParseException
   {
-    int input = 0;
+    int input = -1;
 
     if (mode.equals("edit")) {
       discountID = rs.getInt("discountID");
@@ -238,7 +241,7 @@ public class Discount {
           System.out.println("Going back to Discount Menu");
           System.out.println();
           resetAttributes();
-          break;
+          return;
         case 1:
           System.out.println("Enter Discount ID: ");
           discountID = scan.nextInt();
@@ -281,8 +284,8 @@ public class Discount {
           rs = DiscountSQL.viewDiscount(discountID);
           printDiscount(rs);
           resetAttributes();
-          input = 0; // We're done, back to Discount Menu
-          break;
+          input = -1; // We're done, back to Discount Menu
+          return;
         default:
           System.out.println("Invalid input");
           break;
