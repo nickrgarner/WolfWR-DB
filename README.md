@@ -12,6 +12,6 @@ $ add jdk
 $ mysql < init.sql -u <UnityID> -p -h classdb2.csc.ncsu.edu
 
 # Run WolfWR DBMS
-$ javac MainMenu.java
-$ java MainMenu
+$ javac Login.java
+$ java Login
 ```
