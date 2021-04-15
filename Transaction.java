@@ -98,7 +98,7 @@ public class Transaction {
   {
     do {
       System.out.println("In order to go back to Transaction Menu, enter 0");
-      System.out.println("Please enter a Transaction ID to view a Transaction member");
+      System.out.println("Please enter a Transaction ID to view a Transaction");
       System.out.println();
       System.out.println("Transaction ID: ");
 
@@ -128,7 +128,7 @@ public class Transaction {
   {
     input = 0;
     do {
-      System.out.println("Enter a Transaction ID to edit a Transaction Member or enter 0 to return to Transaction Menu");
+      System.out.println("Enter a Transaction ID to edit a Transaction or enter 0 to return to Transaction Menu");
       System.out.println();
       System.out.println("Transaction ID: ");
 
@@ -161,7 +161,7 @@ public class Transaction {
   {
     do{
       System.out.println("Delete Transaction Menu:");
-      System.out.println("Enter Transaction ID to delete Transaction or enter 0 to return to Transaction Menu");
+      System.out.println("Enter Transaction ID to delete a Transaction or enter 0 to return to Transaction Menu");
       System.out.println();
       System.out.println("Transaction ID: ");
 
