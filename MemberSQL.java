@@ -1,19 +1,13 @@
 import java.sql.*;
-import java.util.*;
-import java.io.*;
-import java.sql.Date;
 import java.text.ParseException;
 import java.sql.SQLException;
 
 public class MemberSQL{
-    private static final String jdbcURL = "";
-    private static final String user = "";
-    private static final String password = "";
 
     //This connects to the database by calling the login file 
-    static Connection connection = login.connection;
-    static Statement statement = login.statement;
-    static ResultSet result = login.result;
+    static Connection connection = Login.connection;
+    static Statement statement = Login.statement;
+    static ResultSet result = Login.result;
 
     /**
      * Method is called in Member file where user wants to see all the Members in the database. This method
@@ -185,49 +179,6 @@ public class MemberSQL{
         } catch (SQLException e) {
             System.out.println("SQL Exception");
             System.out.println(e.getStackTrace());
-        }
-    }
-
-    // Close functions
-    /**
-     * Closes connection object
-     * 
-     * @param connection
-     */
-    public static void close(Connection connection) {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (Throwable whatever) {
-            }
-        }
-    }
-
-    /**
-     * Closes statement objects
-     * 
-     * @param statement
-     */
-    public static void close(Statement statement) {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (Throwable whatever) {
-            }
-        }
-    }
-
-    /**
-     * Closes result objects
-     * 
-     * @param result
-     */
-    public static void close(ResultSet result) {
-        if (result != null) {
-            try {
-                result.close();
-            } catch (Throwable whatever) {
-            }
         }
     }
 }

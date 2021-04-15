@@ -9,12 +9,12 @@ public class Supplier {
     static ResultSet rs = null;
 
     //Declaring and Instantiating all the attribute of a Supplier
-    static int supplierID = 0;
+    static int supplierID = -1;
     static String name = "";
     static String phone = "";
     static String email = "";
     static String location = "";
-    static double amountOwed = 0.0;
+    static double amountOwed = -1.00;
 
     /**
      * This method is called in the MainMenu file when the user wants to add/edit/delete/view suppliers in the database.
@@ -40,8 +40,7 @@ public class Supplier {
             switch(input){
                 case 0:
                     System.out.println("Going back to Main Menu");
-                    scan.close();
-                    break;
+                    return;
                 case 1:
                     viewAllSuppliers();
                     break;
@@ -61,6 +60,7 @@ public class Supplier {
                     System.out.println("Invalid input");
                     break;
             }
+            input = -1;
         } while(input != 6);
     }
     /**
@@ -98,7 +98,7 @@ public class Supplier {
                 System.out.println("Invalid input");
             } else if(input == 0){
                 System.out.println("Going back to Supplier Menu");
-                break;
+                return;
             }
         } while(input != 0);
     }
@@ -125,7 +125,7 @@ public class Supplier {
             scan.nextLine();
 
             updateAttributes(input, "a");
-        } while(input != 8);
+        } while(input != 0);
         rs.close();
     }
     /**
@@ -173,7 +173,7 @@ public class Supplier {
                         scan.nextLine();
 
                         updateAttributes(input, "e");
-                    } while(input != 8);
+                    } while(input != 0);
                 }
             }
         }while(input != 0);
@@ -194,9 +194,9 @@ public class Supplier {
                 SupplierSQL.deleteSupplier(input);
             } else if(input < 0){
                 System.out.println("Invalid input");
-            } else if (input ==0){
+            } else if (input == 0){
                 System.out.println("Going back to Supplier Menu");
-                break;
+                return;
             }
         } while(input != 0);
     }
@@ -248,7 +248,7 @@ public class Supplier {
                 System.out.println("Going back to Supplier Menu");
                 System.out.println();
                 resetAttributes();
-                break;
+                return;
             case 1:
                 System.out.println("Enter Supplier ID:");
                 supplierID = scan.nextInt();
@@ -289,7 +289,8 @@ public class Supplier {
                 rs = SupplierSQL.viewSupplier(supplierID);
                 printSupplier(rs);
                 resetAttributes();
-                break;
+                input = -1;
+                return;
             default:
                 System.out.println("Invalid input");
         }

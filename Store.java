@@ -42,8 +42,7 @@ public class Store {
       switch(input) {
         case 0:
           System.out.println("Going back to Main Menu");
-          scan.close();
-          break;
+          return;
         case 1:
           viewAllStores();
           break;
@@ -63,6 +62,7 @@ public class Store {
           System.out.println("Invalid input");
           break;
       }
+      input = -1;
     } while(input != 0);
   }
 
@@ -106,7 +106,7 @@ public class Store {
         System.out.println("Invalid input");
       } else if (input == 0) {
         System.out.println("Going back to Store Menu");
-        break;
+        return;
       }
     } while (input != 0);
   }
@@ -137,6 +137,7 @@ public class Store {
           addOrEdit("edit");
         }
       } else if (input == 0) {
+        System.out.println("Going back to Store Menu");
         return;
       } else {
         System.out.println("Invalid Store ID");
@@ -171,7 +172,8 @@ public class Store {
       } else if (input < 0) {
         System.out.println("Invalid input");
       } else if (input == 0) {
-        System.out.println("Returning to Store Menu");
+        System.out.println("Going back to Store Menu");
+        return;
       }
     } while (input != 0);
   }
@@ -232,7 +234,7 @@ public class Store {
           System.out.println("Going back to Store Menu");
           System.out.println();
           resetAttributes();
-          break;
+          return;
         case 1:
           System.out.println("Enter Store ID: ");
           storeID = scan.nextInt();
@@ -263,8 +265,8 @@ public class Store {
           ResultSet rs = StoreSQL.viewStore(storeID);
           printStore(rs);
           resetAttributes();
-          input = 0; // We're done, back to Store Menu
-          break;
+          input = -1; // We're done, back to Store Menu
+          return;
         default:
           System.out.println("Invalid input");
           break;

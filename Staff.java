@@ -48,8 +48,7 @@ public class Staff {
       switch(input) {
         case 0:
           System.out.println("Going back to Main Menu");
-          scan.close();
-          break;
+          return;
         case 1:
           viewAllStaff();
           break;
@@ -69,6 +68,7 @@ public class Staff {
           System.out.println("Invalid input");
           break;
       }
+      input = -1;
     } while(input != 0);
   }
 
@@ -112,7 +112,7 @@ public class Staff {
         System.out.println("Invalid input");
       } else if (input == 0) {
         System.out.println("Going back to Staff Menu");
-        break;
+        return;
       }
     } while (input != 0);
   }
@@ -143,6 +143,7 @@ public class Staff {
           addOrEdit("edit");
         }
       } else if (input == 0) {
+        System.out.println("Going back to Staff Menu");
         return;
       } else {
         System.out.println("Invalid Staff ID");
@@ -177,7 +178,8 @@ public class Staff {
       } else if (input < 0) {
         System.out.println("Invalid input");
       } else if (input == 0) {
-        System.out.println("Returning to Staff Menu");
+        System.out.println("Going back to Staff Menu");
+        return;
       }
     } while (input != 0);
   }
@@ -253,7 +255,7 @@ public class Staff {
           System.out.println("Going back to Staff Menu");
           System.out.println();
           resetAttributes();
-          break;
+          return;
         case 1:
           System.out.println("Enter Staff ID: ");
           staffID = scan.nextInt();
@@ -308,8 +310,8 @@ public class Staff {
           ResultSet rs = StaffSQL.viewStaff(staffID);
           printStaff(rs);
           resetAttributes();
-          input = 0; // We're done, back to Staff Menu
-          break;
+          input = -1; // We're done, back to Staff Menu
+          return;
         default:
           System.out.println("Invalid input");
           break;

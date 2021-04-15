@@ -9,7 +9,7 @@ public class Member{
     static ResultSet rs = null;
 
     //Declaring and Instantiating all the attribute of a Member
-    static int memberID = 0;
+    static int memberID = -1;
     static String firstName = "";
     static String lastName = "";
     static String level = "";
@@ -17,7 +17,7 @@ public class Member{
     static String phone = "";
     static String address = "";
     static boolean activeStatus = false;
-    static double rewardAmount = 0.0;
+    static double rewardAmount = -1.00;
 
     /**
      * This method is called in the MainMenu file when the user wants to add/edit/delete/view members in the database.
@@ -43,7 +43,7 @@ public class Member{
             switch(input){
                 case 6:
                     System.out.println("Going back to Main Menu");
-                    break;
+                    return;
                 case 1:
                     viewAllMembers();
                     break;
@@ -63,6 +63,7 @@ public class Member{
                     System.out.println("Invalid input");
                     break;
             }
+            input = -1;
         } while(input != 0); 
     }
     /**
@@ -100,7 +101,7 @@ public class Member{
                 System.out.println("Invalid input");
             } else if(input == 0){
                 System.out.println("Going back to Member Menu");
-                break;
+                return;
             }
         } while(input != 0);
     }
@@ -207,7 +208,7 @@ public class Member{
                 System.out.println("Invalid input");
             } else if (input ==0){
                 System.out.println("Going back to Member Menu");
-                break;
+                return;
             }
         } while(input != 0);
     }
@@ -242,7 +243,7 @@ public class Member{
     * This method is used to reset all the variables to "", 0, or false
     */
     public static void resetAttributes(){
-        memberID = 0;
+        memberID = -1;
         firstName = "";
         lastName = "";
         level = "";
@@ -250,7 +251,7 @@ public class Member{
         phone = "";
         address = "";
         activeStatus = false;
-        rewardAmount = 0.0;
+        rewardAmount = -1.00;
     }
     /**
      * From option that the user selects, this switch statement will prompt the user for the new value for 
