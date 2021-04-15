@@ -1,10 +1,9 @@
 import java.sql.*;
 import java.util.*;
-import java.io.*;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-public class Supplier{
+public class Supplier {
     static Scanner scan = new Scanner(System.in);
     static int input = 0;
     static ResultSet rs = null;
@@ -27,18 +26,22 @@ public class Supplier{
         do{
             System.out.println("Supplier Menu");
             System.out.println();
+            System.out.println("0. Return to Main Menu");
             System.out.println("1. View All Suppliers");
             System.out.println("2. View Supplier by ID");
             System.out.println("3. Add Supplier");
             System.out.println("4. Edit Supplier");
             System.out.println("5. Delete Supplier");
-            System.out.println("6. Return to Main Menu");
             System.out.println();
             System.out.println("Please choose an option from the menu: ");
 
             input = scan.nextInt();
 
             switch(input){
+                case 0:
+                    System.out.println("Going back to Main Menu");
+                    scan.close();
+                    break;
                 case 1:
                     viewAllSuppliers();
                     break;
@@ -53,9 +56,6 @@ public class Supplier{
                     break;
                 case 5:
                     deleteSupplier();
-                    break;
-                case 6:
-                    System.out.println("Going back to Main Menu");
                     break;
                 default:
                     System.out.println("Invalid input");
@@ -110,6 +110,7 @@ public class Supplier{
         //of the supplier the display will be updated. Before the user selects 10, all the attributes must be filled
         //so that the supplier can be created in the database.
         do{
+            System.out.println("0. Go back to Supplier menu: ");
             System.out.println("1. Supplier ID: " + supplierID);
             System.out.println("2. Supplier Name: " + name);
             System.out.println("3. Phone Number: " + phone);
@@ -117,7 +118,6 @@ public class Supplier{
             System.out.println("5. Location: " + location);
             System.out.println("6. Amount Owed: " + amountOwed);
             System.out.println("7. After all attributes have been entered, select 7 to create the new supplier:");
-            System.out.println("8. Go back to menu: ");
             System.out.println();
             System.out.println("Select a number to add to supplier information: ");
 
@@ -158,6 +158,7 @@ public class Supplier{
                     do{
                         //Attributes are displayed to the user and they must choose which one to edit.
                         //User will be reprompted these options until they decide to go back to Supplier Menu
+                        System.out.println("0. Go back to Supplier Menu: ");
                         System.out.println("1. Supplier ID: " + supplierID);
                         System.out.println("2. Supplier Name: " + name);
                         System.out.println("3. Supplier Phone: " + phone);
@@ -165,9 +166,8 @@ public class Supplier{
                         System.out.println("5. Location: " + location);
                         System.out.println("6. Amount Owed: " + amountOwed);
                         System.out.println("7. After all attributes have been entered, select 7 to edit supplier:");
-                        System.out.println("8. Go back to Supplier Menu: ");
                         System.out.println();
-                        System.out.println("Select a number to edit to supplier information: ");
+                        System.out.println("Select a number to edit supplier information: ");
 
                         input = scan.nextInt();
                         scan.nextLine();
@@ -244,6 +244,11 @@ public class Supplier{
      */
     public static void updateAttributes(int input, String s) throws ParseException, ClassNotFoundException, SQLException{
         switch(input){
+            case 0:
+                System.out.println("Going back to Supplier Menu");
+                System.out.println();
+                resetAttributes();
+                break;
             case 1:
                 System.out.println("Enter Supplier ID:");
                 supplierID = scan.nextInt();
@@ -266,7 +271,7 @@ public class Supplier{
                 break;
             case 6:
                 System.out.println("Enter Amount Owed:");
-                rewardAmount = scan.nextDouble();
+                amountOwed = scan.nextDouble();
                 break;
             case 7:
                 try{
@@ -283,11 +288,6 @@ public class Supplier{
                 }
                 rs = SupplierSQL.viewSupplier(supplierID);
                 printSupplier(rs);
-                resetAttributes();
-                break;
-            case 8:
-                System.out.println("Going back to Supplier Menu");
-                System.out.println();
                 resetAttributes();
                 break;
             default:
