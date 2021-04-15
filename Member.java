@@ -30,18 +30,21 @@ public class Member{
         do{
             System.out.println("Member Menu");
             System.out.println();
+            System.out.println("0. Return to Main Menu");
             System.out.println("1. View All Members");
             System.out.println("2. View Member by ID");
             System.out.println("3. Add Member");
             System.out.println("4. Edit Member");
             System.out.println("5. Delete Member");
-            System.out.println("6. Return to Main Menu");
             System.out.println();
             System.out.println("Please choose an option from the menu: ");
 
             input = scan.nextInt();
 
             switch(input){
+                case 6:
+                    System.out.println("Going back to Main Menu");
+                    break;
                 case 1:
                     viewAllMembers();
                     break;
@@ -57,14 +60,11 @@ public class Member{
                 case 5:
                     deleteMember();
                     break;
-                case 6:
-                    System.out.println("Going back to Main Menu");
-                    break;
                 default:
                     System.out.println("Invalid input");
                     break;
             }
-        } while(input != 6); 
+        } while(input != 0); 
     }
     /**
      * Method displays all members in the database
@@ -113,6 +113,7 @@ public class Member{
         //of the member the display will be updated. Before the user selects 10, all the attributes must be filled
         //so that the member can be created in the database.
         do{
+            System.out.println("0. Go back to Member Menu: ");
             System.out.println("1. Member ID: " + memberID);
             System.out.println("2. First Name: " + firstName);
             System.out.println("3. Last Name: " + lastName);
@@ -123,7 +124,6 @@ public class Member{
             System.out.println("8. Active Status: " + activeStatus);
             System.out.println("9. Reward Amount: " + rewardAmount);
             System.out.println("10. After all attributes have been entered, select 10 to create the new member:");
-            System.out.println("11. Go back to menu: ");
             System.out.println();
             System.out.println("Select a number to add to member information: ");
 
@@ -131,7 +131,7 @@ public class Member{
             scan.nextLine();
 
             updateAttributes(input, "a");
-        } while(input != 11);
+        } while(input != 0);
         rs.close();
     }
     /**
@@ -167,6 +167,7 @@ public class Member{
                     do{
                         //Attributes are displayed to the user and they must choose which one to edit.
                         //User will be reprompted these options until they decide to go back to Member Menu
+                        System.out.println("0. Go back to Member Menu: ");
                         System.out.println("1. Member ID: " + memberID);
                         System.out.println("2. First Name: " + firstName);
                         System.out.println("3. Last Name: " + lastName);
@@ -177,15 +178,14 @@ public class Member{
                         System.out.println("8. Active Status: " + activeStatus);
                         System.out.println("9. Reward Amount: " + rewardAmount);
                         System.out.println("10. After all attributes have been entered, select 10 to edit member:");
-                        System.out.println("11. Go back to Member Menu: ");
                         System.out.println();
-                        System.out.println("Select a number to edit to member information: ");
+                        System.out.println("Select a number to edit member information: ");
             
                         input = scan.nextInt();
                         scan.nextLine();
                         
                         updateAttributes(input, "e");
-                    } while(input != 11);
+                    } while(input != 0);
                 }
             }
         }while(input != 0);
@@ -263,6 +263,11 @@ public class Member{
      */
     public static void updateAttributes(int input, String s) throws ParseException, ClassNotFoundException, SQLException{
         switch(input){
+            case 0:
+                System.out.println("Going back to Member Menu");
+                System.out.println();
+                resetAttributes();
+                break;
             case 1:
                 System.out.println("Enter Member ID:");
                 memberID = scan.nextInt();
@@ -314,11 +319,6 @@ public class Member{
                 }
                 rs = MemberSQL.viewMember(memberID);
                 printMember(rs);
-                resetAttributes();
-                break;
-            case 11:
-                System.out.println("Going back to Member Menu");
-                System.out.println();
                 resetAttributes();
                 break;
             default:

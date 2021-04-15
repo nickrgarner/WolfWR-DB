@@ -1,10 +1,9 @@
 import java.sql.*;
 import java.util.*;
 import java.io.*;
-import java.sql.SQLException;
+import java.sql.Date;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.Period;
+import java.sql.SQLException;
 
 public class MemberSQL{
     private static final String jdbcURL = "";
@@ -114,7 +113,7 @@ public class MemberSQL{
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            e.getStackTrace();
+            System.out.println(e.getStackTrace());
         }
     }
     /**
@@ -163,7 +162,7 @@ public class MemberSQL{
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            e.getStackTrace();
+            System.out.println(e.getStackTrace());
         }
     }
     /**
@@ -185,7 +184,7 @@ public class MemberSQL{
             }
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            e.getStackTrace();
+            System.out.println(e.getStackTrace());
         }
     }
 
