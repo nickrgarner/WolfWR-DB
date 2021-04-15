@@ -10,7 +10,7 @@ import java.text.ParseException;
 public class MainMenu {
     static Scanner scan = new Scanner(System.in);
     static int input = 0;
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
+    public static void initiate() throws ClassNotFoundException, SQLException, ParseException {
         System.out.println("Welcome to our application for WolfWR, a WolfCity  wholesale store chain");
         System.out.println();
         

@@ -6,14 +6,11 @@ import java.text.ParseException;
 import java.sql.SQLException;
 
 public class MemberSQL{
-    private static final String jdbcURL = "";
-    private static final String user = "";
-    private static final String password = "";
 
     //This connects to the database by calling the login file 
-    static Connection connection = login.connection;
-    static Statement statement = login.statement;
-    static ResultSet result = login.result;
+    static Connection connection = Login.connection;
+    static Statement statement = Login.statement;
+    static ResultSet result = Login.result;
 
     /**
      * Method is called in Member file where user wants to see all the Members in the database. This method
