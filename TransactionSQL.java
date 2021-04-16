@@ -176,6 +176,7 @@ public class TransactionSQL {
 
   /**
    * Queries the Transaction relation for total sales revenue between two dates
+   * @param isStore Are we querying for a specific store?
    * @param start Start date of the range in question
    * @param end End date of the range in question
    * @return ResultSet containing sum total of transactions within the date range
@@ -183,15 +184,23 @@ public class TransactionSQL {
    * @throws SQLException
    * @throws ParseException
    */
-  public static ResultSet totalSalesReport(Date start, Date end) throws ClassNotFoundException, SQLException, ParseException
+  public static ResultSet totalSalesReport(boolean isStore, int storeID, String start, String end) throws ClassNotFoundException, SQLException, ParseException
   {
+    System.out.println("SQL method called");
     ResultSet returnSet = null;
     PreparedStatement ps = null;
 
     try {
-      ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE date > ? AND date < ?;");
-      ps.setDate(1, start);
-      ps.setDate(2, end);
+      if (isStore) {
+        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE date > ? AND date < ? AND storeID = ?;");
+        ps.setString(1, start);
+        ps.setString(2, end);
+        ps.setInt(3, storeID);
+      } else {
+        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE date > ? AND date < ?;");
+        ps.setString(1, start);
+        ps.setString(2, end);
+      }
       returnSet = ps.executeQuery();
       ps.close();
     } catch (SQLException e) {

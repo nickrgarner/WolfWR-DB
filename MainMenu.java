@@ -102,6 +102,7 @@ public class MainMenu {
                     break;
                 case 8:
                     Transaction.transactionMenu();
+                    break;
                 default:
                     System.out.println("Invalid input");
                     break;
@@ -255,10 +256,10 @@ public class MainMenu {
                     System.out.println("Going back to Main Menu");
                     return;
                 case 1:
-                    Transaction.totalSales();                                 
+                    Transaction.totalSales(false);                                 
                     break;
                 case 2:
-                    Transaction.storeSales();
+                    Transaction.totalSales(true);
                     break;
                 case 3:
                     //Make method for this operation

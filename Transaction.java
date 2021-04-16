@@ -320,11 +320,18 @@ public class Transaction {
     } while(input != 0);
   }
 
-  public static void totalSales() throws ClassNotFoundException, SQLException, ParseException
+  /**
+   * Menu for Total Sales report. Prompts user for date range then calls SQL method to get sum.
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
+  public static void totalSales(boolean isStore) throws ClassNotFoundException, SQLException, ParseException
   {
     do {
-      Date rangeStart = Date.valueOf("0001-01-01");
-      Date rangeEnd = Date.valueOf("0001-01-01");
+      String rangeStart = "0001-01-01";
+      String rangeEnd = "0001-01-01";
+      int id = -1;
 
       System.out.println("Report: Total sales");
       System.out.println();
@@ -337,35 +344,48 @@ public class Transaction {
 
       input = scan.nextInt();
 
+      if (isStore) {
+        System.out.println("Please enter the ID of the store: ");
+        id = scan.nextInt();
+      }
+
       switch(input) {
         case 0:
           System.out.println("Going back to Reports Menu");
           return;
         case 1:
           System.out.println("Please input Start Date in the format YYYY-MM-DD:");
-          rangeStart = Date.valueOf(scan.nextLine());
+          rangeStart = scan.nextLine();
           System.out.println("Please input End Date in the format YYYY-MM-DD:");
-          rangeEnd = Date.valueOf(scan.nextLine());
+          rangeEnd = scan.nextLine();
           break;
         case 2:
           System.out.println("Please input Start year in the format YYYY");
-          rangeStart = Date.valueOf(scan.nextLine() + rangeStart.toString().substring(4));
+          rangeStart = String.valueOf(scan.nextInt()) + rangeStart.substring(4);
           System.out.println("Please input Start month in the format MM");
-          rangeStart = Date.valueOf(rangeStart.toString().substring(0, 5) + scan.nextLine() + "-01");
+          rangeStart = rangeStart.toString().substring(0, 5) + String.valueOf(scan.nextInt()) + "-01";
           System.out.println("Please input End year in the format YYYY");
-          rangeEnd = Date.valueOf(scan.nextLine() + rangeEnd.toString().substring(4));
+          rangeEnd = String.valueOf(scan.nextInt()) + rangeEnd.substring(4);
           System.out.println("Please input End month in the format MM");
-          rangeEnd = Date.valueOf(rangeEnd.toString().substring(0, 5) + scan.nextLine() + "-01");
+          rangeEnd = rangeEnd.substring(0, 5) + String.valueOf(scan.nextInt()) + "-01";
           break;
         case 3:
           System.out.println("Please input Start year in the format YYYY");
-          rangeStart = Date.valueOf(scan.nextLine() + "-01-01");
+          rangeStart = String.valueOf(scan.nextInt()) + "-01-01";
           System.out.println("Please input End year in the format YYYY");
-          rangeEnd = Date.valueOf(scan.nextLine() + "-01-01");
+          rangeEnd = String.valueOf(scan.nextInt()) + "-01-01";
           break;
       }
-      rs = TransactionSQL.totalSalesReport(rangeStart, rangeEnd);
-      System.out.println("Total Sales for period between " + rangeStart.toString() + " and " + rangeEnd.toString() + ": $" + rs.getDouble("SUM(total)"));
+      try {
+        rs = TransactionSQL.totalSalesReport(isStore, id, rangeStart, rangeEnd);
+        if (isStore) {
+          System.out.println("Total Sales for Store " + id + " for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
+        } else {
+          System.out.println("Total Sales for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
+        }
+      } catch (SQLDataException e) {
+        e.printStackTrace();
+      }
     } while (input != 0);
   }
 
