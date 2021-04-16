@@ -185,6 +185,20 @@ public class MerchandiseSQL {
         }
     }
 
+    /**
+     * Method adds a merchandise to the database and handles duplicates. Method is called in Merchandise file to execute the sql query.
+     * @param productID
+     * @param storeID
+     * @param name
+     * @param quantity
+     * @param buyPrice
+     * @param marketPrice
+     * @param productionDate
+     * @param expiration
+     * @param supplierID
+     * @throws SQLException
+     * @throws ParseException
+     */
     static void addNewMerchandise(int productID, int storeID, String name, int quantity, double buyPrice, double marketPrice, Date productionDate, Date expiration, int supplierID) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
@@ -234,7 +248,19 @@ public class MerchandiseSQL {
             System.out.println(e.getStackTrace());
         }
     }
-
+    
+    /**
+     * Method is called in Merchandise file under returnInventory and is used to execute queries when a member returns a product. The first query will be updating the 
+     * Merchandise database and increasing the quantity of the product. The second query will be reducing the reward amount that the member has.
+     * The last query will be removing the transaction from the database.
+     * @param productID
+     * @param supplierID
+     * @param storeID
+     * @param memberID
+     * @param transactionID
+     * @throws SQLException
+     * @throws ParseException
+     */
     public static void returnInventory(int productID, int supplierID, int storeID, int memberID, int transactionID) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
@@ -298,7 +324,23 @@ public class MerchandiseSQL {
             System.out.println(e.getStackTrace());
         }
     }
-
+    /**
+     * This method is called in the Merchandise file under transferInventory. The purpose of this method is to take in two storeIDs and transfer the product of one
+     * store to another store. This method will execute two queries with the first query reducing the quantity of the original store. The second query will be adding the 
+     * product to the second store, while handling duplicates.
+     * @param productID
+     * @param storeID
+     * @param name
+     * @param quantity
+     * @param buyPrice
+     * @param marketPrice
+     * @param productionDate
+     * @param expiration
+     * @param supplierID
+     * @param storeID2
+     * @throws SQLException
+     * @throws ParseException
+     */
     public static void transferInventory(int productID, int storeID, String name, int quantity, double buyPrice, double marketPrice, Date productionDate, Date expiration, int supplierID,int storeID2) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
