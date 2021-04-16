@@ -188,6 +188,7 @@ public class MerchandiseSQL {
     static void addNewMerchandise(int productID, int storeID, String name, int quantity, double buyPrice, double marketPrice, Date productionDate, Date expiration, int supplierID) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
         int id = 0;
         try{
             ps = connection.prepareStatement("INSERT INTO Merchandise (productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID) VALUES (?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE quantity = quantity + 10000;");
@@ -211,6 +212,21 @@ public class MerchandiseSQL {
             } else{
                 System.out.println("New Merchandise not added");
             }
+
+            id = 0;
+            ps2 = connection.prepareStatement("UPDATE Supplier SET amountOwed = amountOwed + (0.02*10000) where supplierID = ?;");
+            ps2.setInt(1,supplierID);
+            
+            id = ps2.executeUpdate();
+            connection.commit();
+            ps2.close();
+            System.out.println(id);
+            
+            if(id > 0){
+                System.out.println("Amount owed to supplier updated");
+            } else{
+                System.out.println("Amount owed to supplier could not be updated");
+            }
         }
         catch (SQLException e) {
             System.out.println("SQL Exception");
@@ -219,13 +235,19 @@ public class MerchandiseSQL {
         }
     }
 
-    static void updateAmountOwed(int supplierID) throws SQLException, ParseException{
+    public static void returnInventory(int productID, int supplierID, int storeID, int memberID, int transactionID) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
+        PreparedStatement ps3 = null;
+
         int id = 0;
         try{
-            ps = connection.prepareStatement("UPDATE Supplier SET amountOwed = amountOwed + (0.02*10000) where supplierID = ?;");
-            ps.setInt(1,supplierID);
+            ps = connection.prepareStatement("Update Merchandise SET quantity = quantity + 1 WHERE productID = ? AND supplierID = ? AND storeID = ?;");
+            ps.setInt(1,productID);
+            ps.setInt(2, supplierID);
+            ps.setInt(3,storeID);
+            
             
             id = ps.executeUpdate();
             connection.commit();
@@ -233,9 +255,94 @@ public class MerchandiseSQL {
             System.out.println(id);
             
             if(id > 0){
-                System.out.println("Amount owed to supplier updated");
+                System.out.println("Merchandise quantity updated");
             } else{
-                System.out.println("Amount owed to supplier could not be updated");
+                System.out.println("Merchandise quantity not updated");
+            }
+
+            id = 0;
+            ps2 = connection.prepareStatement("UPDATE Member SET rewardAmount = rewardAMOUNT - (SELECT(total*0.02) FROM Transaction WHERE transactionID = ? AND productID = ?) WHERE memberID = ?;");
+            ps2.setInt(1,transactionID);
+            ps2.setInt(2,productID);
+            ps2.setInt(3,memberID);
+            
+            id = ps2.executeUpdate();
+            connection.commit();
+            ps2.close();
+            System.out.println(id);
+            
+            if(id > 0){
+                System.out.println("Member reward amount updated");
+            } else{
+                System.out.println("Member reward amount not updated");
+            }
+
+            id = 0;
+            ps3 = connection.prepareStatement("DELETE FROM Transaction WHERE transactionID = ?;");
+            ps3.setInt(1,transactionID);
+            
+            id = ps3.executeUpdate();
+            connection.commit();
+            ps3.close();
+            System.out.println(id);
+            
+            if(id > 0){
+                System.out.println("Transaction deleted");
+            } else{
+                System.out.println("Transaction not deleted");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("SQL Exception");
+            connection.rollback();
+            System.out.println(e.getStackTrace());
+        }
+    }
+
+    public static void transferInventory(int productID, int storeID, String name, int quantity, double buyPrice, double marketPrice, Date productionDate, Date expiration, int supplierID,int storeID2) throws SQLException, ParseException{
+        //Object that represents a precompiled SQL statement
+        PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
+        int id = 0;
+        try{
+            id = 0;
+            ps = connection.prepareStatement("UPDATE Merchandise SET quantity = quantity - 10 WHERE productID = ? AND supplierID = ? AND storeID = ?;");
+            ps.setInt(1,productID);
+            ps.setInt(2,supplierID);
+            ps.setInt(3,storeID);
+            
+            id = ps.executeUpdate();
+            connection.commit();
+            ps.close();
+            System.out.println(id);
+            
+            if(id > 0){
+                System.out.println("Merchandise removed from original store");
+            } else{
+                System.out.println("Merchandise not removed from original store");
+            }
+
+            id = 0;
+            ps2 = connection.prepareStatement("INSERT INTO Merchandise (productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID) VALUES (?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE quantity = quantity + 10;");
+            ps2.setInt(1,productID);
+            ps2.setInt(2,storeID2);
+            ps2.setString(3,name);
+            ps2.setInt(4,quantity);
+            ps2.setDouble(5, buyPrice);
+            ps2.setDouble(6,marketPrice);
+            ps2.setDate(7,productionDate);
+            ps2.setDate(8, expiration);
+            ps2.setInt(9, supplierID);
+            
+            id = ps2.executeUpdate();
+            connection.commit();
+            ps2.close();
+            System.out.println(id);
+            
+            if(id > 0){
+                System.out.println("Merchandise transfered successfully to store");
+            } else{
+                System.out.println("Merchandise not transfered successfully to store");
             }
         }
         catch (SQLException e) {

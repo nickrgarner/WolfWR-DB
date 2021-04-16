@@ -220,25 +220,93 @@ public class Merchandise {
             System.out.println("In order to go back to Main Menu, enter 0");
             System.out.println("Input new inventory into database, enter 1");
             input = scan.nextInt();
-            if(input == 1){
+            if(input == 0){
+                return;
+            }
+            else if(input == 1){
                 addMerchandise(0);
-        
-                System.out.println();
-                System.out.println("Update the amount owed to the supplier, please enter a Supplier ID: ");
-                input = scan.nextInt();
-                MerchandiseSQL.updateAmountOwed(input);
             } else{
                 System.out.println("Invalid input");
             }
         } while(input != 0);
     }
 
-    public static void returnInventory(){
+    public static void returnInventory() throws ParseException, ClassNotFoundException, SQLException{
+        int memberID = -1;
+        int transactionID = -1;
+        do {
+            System.out.println("In order to go back to Main Menu, enter 0");
+            System.out.println("Return inventory into database, enter 1");
+            input = scan.nextInt();
+            if(input == 0){
+                return;
+            } else if (input == 1){
+                System.out.println("In order to begin the return, please enter a productID");
+                productID = scan.nextInt();
 
+                System.out.println("Enter Supplier ID:");
+                supplierID = scan.nextInt();
+
+                System.out.println("Enter Store ID:");
+                storeID = scan.nextInt();
+
+                System.out.println("Enter Member ID:");
+                storeID = scan.nextInt();
+
+                System.out.println("Enter Transaction ID:");
+                storeID = scan.nextInt();
+
+                MerchandiseSQL.returnInventory(productID, supplierID, storeID, memberID, transactionID);
+
+                resetAttributes();
+            } else{
+                System.out.println("Invalid input");
+            }
+        } while(input != 0);
     }
 
-    public static void transferInventory(){
+    public static void transferInventory() throws ParseException, ClassNotFoundException, SQLException{
+        do {
+            System.out.println("In order to go back to Main Menu, enter 0");
+            System.out.println("Transfer inventory between stores, enter 1");
+            int storeID2 = -1;
+            input = scan.nextInt();
+            if(input == 0){
+                return;
+            } else if (input == 1){
+                System.out.println("In order to begin the transfer, please enter a productID");
+                productID = scan.nextInt();
 
+                System.out.println("Enter Supplier ID:");
+                supplierID = scan.nextInt();
+
+                System.out.println("Enter Store ID:");
+                storeID2 = scan.nextInt();
+
+
+                rs = MerchandiseSQL.viewMerchandise(productID);
+                //Checks if viewMerchandise was able to find an existing Merchandise
+                if(!rs.next()){
+                    System.out.println("Merchandise does not exist");
+                } else{
+                    //The merchadise exists and all the attributes of that merchandise are being stored into variables so 
+                    //that they can be displayed to the user. In order for them to choose which attribute to edit. 
+                    name = rs.getString("name");
+                    quantity = rs.getInt("quantity");
+                    buyPrice =rs.getDouble("buyPrice");
+                    marketPrice = rs.getDouble("marketPrice");
+                    productionDate = rs.getDate("productionDate");
+                    expiration = rs.getDate("expiration");
+                    storeID = rs.getInt("storeID"); 
+                }
+
+                MerchandiseSQL.transferInventory(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID, storeID2);
+
+                resetAttributes();
+            } else{
+                System.out.println("Invalid input");
+            }
+        } while(input != 0);
     }
 
     /**
@@ -295,7 +363,11 @@ public class Merchandise {
     public static void updateAttributes(int input, String s, int num) throws ParseException, ClassNotFoundException, SQLException{
         switch(input){
             case 0:
-                System.out.println("Going back to Merchandise Menu");
+                if(num == 1){
+                    System.out.println("0. Go back to Merchandise Menu: ");
+                } else {
+                    System.out.println("0. Go back to Maintain Inventory Menu: ");
+                }
                 System.out.println();
                 resetAttributes();
                 return;

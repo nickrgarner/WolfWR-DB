@@ -135,18 +135,10 @@ public class MainMenu {
                     Merchandise.newInventory();
                     break;
                 case 2:
-                    //Make method for this operation
-                    
-                        //UPDATE Merchandise with SET
-                        //UPDATE Member with SET
-                        //DELETE FROM Transaction
-
+                    Merchandise.returnInventory();
                     break;
                 case 3:
-                    //Make method for this operation
-
-                        //UPDATE Merchandise with SET
-                        //INSERT INTO Merchandise
+                    Merchandise.transferInventory();
                     break;
                 
                 default:
