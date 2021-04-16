@@ -355,9 +355,9 @@ public class Transaction {
           return;
         case 1:
           System.out.println("Please input Start Date in the format YYYY-MM-DD:");
-          rangeStart = scan.nextLine();
+          rangeStart = scan.next();
           System.out.println("Please input End Date in the format YYYY-MM-DD:");
-          rangeEnd = scan.nextLine();
+          rangeEnd = scan.next();
           break;
         case 2:
           System.out.println("Please input Start year in the format YYYY");
@@ -376,16 +376,16 @@ public class Transaction {
           rangeEnd = String.valueOf(scan.nextInt()) + "-01-01";
           break;
       }
-      try {
-        rs = TransactionSQL.totalSalesReport(isStore, id, rangeStart, rangeEnd);
-        if (isStore) {
-          System.out.println("Total Sales for Store " + id + " for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
-        } else {
-          System.out.println("Total Sales for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
-        }
-      } catch (SQLDataException e) {
-        e.printStackTrace();
+
+      rs = TransactionSQL.totalSalesReport(isStore, id, rangeStart, rangeEnd);
+      rs.next();
+      if (isStore) {
+        System.out.println("Total Sales for Store " + id + " for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
+      } else {
+        System.out.println("Total Sales for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
       }
+      System.out.println();
+
     } while (input != 0);
   }
 

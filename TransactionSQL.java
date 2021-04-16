@@ -192,12 +192,12 @@ public class TransactionSQL {
 
     try {
       if (isStore) {
-        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE date > ? AND date < ? AND storeID = ?;");
-        ps.setString(1, start);
-        ps.setString(2, end);
-        ps.setInt(3, storeID);
+        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE storeID = ? AND date BETWEEN ? AND ?;");
+        ps.setInt(1, storeID);
+        ps.setString(2, start);
+        ps.setString(3, end);
       } else {
-        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE date > ? AND date < ?;");
+        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE date BETWEEN ? AND ?;");
         ps.setString(1, start);
         ps.setString(2, end);
       }
