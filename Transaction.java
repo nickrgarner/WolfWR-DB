@@ -320,6 +320,55 @@ public class Transaction {
     } while(input != 0);
   }
 
+  public static void totalSales() throws ClassNotFoundException, SQLException, ParseException
+  {
+    do {
+      Date rangeStart = Date.valueOf("0001-01-01");
+      Date rangeEnd = Date.valueOf("0001-01-01");
+
+      System.out.println("Report: Total sales");
+      System.out.println();
+      System.out.println("0. Return to Reports Menu");
+      System.out.println("1. View total sales by day");
+      System.out.println("2. View total sales by month");
+      System.out.println("3. View total sales by year");
+      System.out.println();
+      System.out.print("Please choose an option from the menu: ");
+
+      input = scan.nextInt();
+
+      switch(input) {
+        case 0:
+          System.out.println("Going back to Reports Menu");
+          return;
+        case 1:
+          System.out.println("Please input Start Date in the format YYYY-MM-DD:");
+          rangeStart = Date.valueOf(scan.nextLine());
+          System.out.println("Please input End Date in the format YYYY-MM-DD:");
+          rangeEnd = Date.valueOf(scan.nextLine());
+          break;
+        case 2:
+          System.out.println("Please input Start year in the format YYYY");
+          rangeStart = Date.valueOf(scan.nextLine() + rangeStart.toString().substring(4));
+          System.out.println("Please input Start month in the format MM");
+          rangeStart = Date.valueOf(rangeStart.toString().substring(0, 5) + scan.nextLine() + "-01");
+          System.out.println("Please input End year in the format YYYY");
+          rangeEnd = Date.valueOf(scan.nextLine() + rangeEnd.toString().substring(4));
+          System.out.println("Please input End month in the format MM");
+          rangeEnd = Date.valueOf(rangeEnd.toString().substring(0, 5) + scan.nextLine() + "-01");
+          break;
+        case 3:
+          System.out.println("Please input Start year in the format YYYY");
+          rangeStart = Date.valueOf(scan.nextLine() + "-01-01");
+          System.out.println("Please input End year in the format YYYY");
+          rangeEnd = Date.valueOf(scan.nextLine() + "-01-01");
+          break;
+      }
+      rs = TransactionSQL.totalSalesReport(rangeStart, rangeEnd);
+      System.out.println("Total Sales for period between " + rangeStart.toString() + " and " + rangeEnd.toString() + ": $" + rs.getDouble("SUM(total)"));
+    } while (input != 0);
+  }
+
   /**
    * Resets Transaction attributes back to default.
    */

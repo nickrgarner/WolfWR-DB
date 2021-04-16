@@ -173,4 +173,31 @@ public class TransactionSQL {
       System.out.println("SQL Exception: " + e.getStackTrace());
     }
   }
+
+  /**
+   * Queries the Transaction relation for total sales revenue between two dates
+   * @param start Start date of the range in question
+   * @param end End date of the range in question
+   * @return ResultSet containing sum total of transactions within the date range
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
+  public static ResultSet totalSalesReport(Date start, Date end) throws ClassNotFoundException, SQLException, ParseException
+  {
+    ResultSet returnSet = null;
+    PreparedStatement ps = null;
+
+    try {
+      ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE date > ? AND date < ?;");
+      ps.setDate(1, start);
+      ps.setDate(2, end);
+      returnSet = ps.executeQuery();
+      ps.close();
+    } catch (SQLException e) {
+      System.out.println("SQL Exception: " + e.getStackTrace());
+      return null;
+    }
+    return returnSet;
+  }
 }

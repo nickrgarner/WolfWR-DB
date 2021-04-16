@@ -241,7 +241,7 @@ public class MainMenu {
         do{
             System.out.println("Reports Menu");
             System.out.println("0. Go back to Main Menu:");
-            System.out.println("1. General reports such as total sales report by day, by month, or by year");
+            System.out.println("1. Total sales report by day, month, or year");
             System.out.println("2. Sales growth report for a specific store for a given time period");
             System.out.println("3. Merchandise stock report for each store or for a certain product");
             System.out.println("4. Customer growth report by month or by year");
@@ -255,39 +255,10 @@ public class MainMenu {
                     System.out.println("Going back to Main Menu");
                     return;
                 case 1:
-                    //Make a method for this operation       
-                        // SELECT SUM(total)
-                        // FROM Transaction
-                        // WHERE date=(SELECT CURDATE());
-
-                        // SELECT SUM(total)
-                        // FROM Transaction
-                        // WHERE MONTH(date)=MONTH((SELECT CURDATE()))
-                        // AND YEAR(date)=YEAR((SELECT CURDATE()));
-
-                        // SELECT SUM(total)
-                        // FROM Transaction
-                        // WHERE YEAR(date)=YEAR((SELECT CURDATE()));
-                                 
+                    Transaction.totalSales();                                 
                     break;
                 case 2:
-                    //Make method for this operation
-                        // SELECT SUM(total)
-                        // FROM Transaction
-                        // WHERE date=(SELECT CURDATE())
-                        // AND storeID=?;
-
-                        // SELECT SUM(total)
-                        // FROM Transaction
-                        // WHERE MONTH(date)=MONTH((SELECT CURDATE()))
-                        // AND YEAR(date)=YEAR((SELECT CURDATE()))
-                        // AND storeID=?;
-
-                        // SELECT SUM(total)
-                        // FROM Transaction
-                        // WHERE YEAR(date)=YEAR((SELECT CURDATE()))
-                        // AND storeID=?;
-
+                    Transaction.storeSales();
                     break;
                 case 3:
                     //Make method for this operation
