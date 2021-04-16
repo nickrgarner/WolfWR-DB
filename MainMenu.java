@@ -273,16 +273,7 @@ public class MainMenu {
 
                     break;
                 case 4:
-                    //Make method for this operation
-                        // SELECT COUNT(memberID)
-                        // FROM SignUp
-                        // WHERE MONTH(signUpDate)=MONTH((SELECT CURDATE()))
-                        // AND YEAR(signUpDate)=YEAR((SELECT CURDATE()));
-
-                        // SELECT COUNT(memberID)
-                        // FROM SignUp
-                        // WHERE YEAR(signUpDate)=YEAR((SELECT CURDATE()));
-                    
+                    SignUp.memberGrowth();
                     break;
                 case 5:
                     Transaction.totalSales();                    
