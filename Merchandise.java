@@ -215,6 +215,13 @@ public class Merchandise {
         } while(input != 0);
     }
 
+    /**
+     * This method is similar to the addMerchandise in the Merchandise Menu as it adds a new merchandise to the menu. The only
+     * difference with this method is the prompt for the user and the sql query handling duplicates.
+     * @throws ParseException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public static void newInventory() throws ParseException, ClassNotFoundException, SQLException{
         do {
             System.out.println("In order to go back to Main Menu, enter 0");
@@ -231,6 +238,11 @@ public class Merchandise {
         } while(input != 0);
     }
 
+    /**
+     * This method is called in the MainMenu file under Maintain Inventory. In order to return inventory into data base, the user will be prompted for 
+     * the productID, supplierID, and storeID. When all information is obtained, it will go to returnInventory in MerchandiseSQL 
+     * to complete the query
+     */
     public static void returnInventory() throws ParseException, ClassNotFoundException, SQLException{
         int memberID = -1;
         int transactionID = -1;
@@ -265,6 +277,11 @@ public class Merchandise {
         } while(input != 0);
     }
 
+    /**
+     * This method is called in the MainMenu file under Maintain Inventory. In order for products to be transfered from store to store,
+     * the user will be prompted for a productID, supplierID, and storeID that will be transfered to. After wards it will retrieve all the information 
+     * of the original store by using the productID. To execute the sql query it will go to MerchandiseSQL file under the method transferInventory.
+     */
     public static void transferInventory() throws ParseException, ClassNotFoundException, SQLException{
         do {
             System.out.println("In order to go back to Main Menu, enter 0");
@@ -280,7 +297,7 @@ public class Merchandise {
                 System.out.println("Enter Supplier ID:");
                 supplierID = scan.nextInt();
 
-                System.out.println("Enter Store ID:");
+                System.out.println("Enter Store ID you want to transfer the product:");
                 storeID2 = scan.nextInt();
 
 
@@ -289,8 +306,7 @@ public class Merchandise {
                 if(!rs.next()){
                     System.out.println("Merchandise does not exist");
                 } else{
-                    //The merchadise exists and all the attributes of that merchandise are being stored into variables so 
-                    //that they can be displayed to the user. In order for them to choose which attribute to edit. 
+                    //Grabs the variables needed to pass to the sql query
                     name = rs.getString("name");
                     quantity = rs.getInt("quantity");
                     buyPrice =rs.getDouble("buyPrice");
