@@ -184,4 +184,64 @@ public class MerchandiseSQL {
             System.out.println(e.getStackTrace());
         }
     }
+
+    static void addNewMerchandise(int productID, int storeID, String name, int quantity, double buyPrice, double marketPrice, Date productionDate, Date expiration, int supplierID) throws SQLException, ParseException{
+        //Object that represents a precompiled SQL statement
+        PreparedStatement ps = null;
+        int id = 0;
+        try{
+            ps = connection.prepareStatement("INSERT INTO Merchandise (productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID) VALUES (?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE quantity = quantity + 10000;");
+            ps.setInt(1,productID);
+            ps.setInt(2,storeID);
+            ps.setString(3,name);
+            ps.setInt(4,quantity);
+            ps.setDouble(5, buyPrice);
+            ps.setDouble(6,marketPrice);
+            ps.setDate(7,productionDate);
+            ps.setDate(8, expiration);
+            ps.setInt(9, supplierID);
+            
+            id = ps.executeUpdate();
+            connection.commit();
+            ps.close();
+            System.out.println(id);
+            
+            if(id > 0){
+                System.out.println("New Merchandise added successfully");
+            } else{
+                System.out.println("New Merchandise not added");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("SQL Exception");
+            connection.rollback();
+            System.out.println(e.getStackTrace());
+        }
+    }
+
+    static void updateAmountOwed(int supplierID) throws SQLException, ParseException{
+        //Object that represents a precompiled SQL statement
+        PreparedStatement ps = null;
+        int id = 0;
+        try{
+            ps = connection.prepareStatement("UPDATE Supplier SET amountOwed = amountOwed + (0.02*10000) where supplierID = ?;");
+            ps.setInt(1,supplierID);
+            
+            id = ps.executeUpdate();
+            connection.commit();
+            ps.close();
+            System.out.println(id);
+            
+            if(id > 0){
+                System.out.println("Amount owed to supplier updated");
+            } else{
+                System.out.println("Amount owed to supplier could not be updated");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("SQL Exception");
+            connection.rollback();
+            System.out.println(e.getStackTrace());
+        }
+    }
 }

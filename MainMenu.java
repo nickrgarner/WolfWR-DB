@@ -132,11 +132,7 @@ public class MainMenu {
                     System.out.println("Going back to Main Menu");
                     return;
                 case 1:
-                    //Make a method for this operation       
-                        //INSERT INTO Merchandise
-                        Merchandise.addMerchandise();
-                        //UPDATE Supplier with SET
-                                 
+                    Merchandise.newInventory();
                     break;
                 case 2:
                     //Make method for this operation
@@ -151,7 +147,6 @@ public class MainMenu {
 
                         //UPDATE Merchandise with SET
                         //INSERT INTO Merchandise
-                    Merchandise.addMerchandise();
                     break;
                 
                 default:

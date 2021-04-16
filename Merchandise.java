@@ -46,7 +46,7 @@ public class Merchandise {
                     viewMerchandise();
                     break;
                 case 3:
-                    addMerchandise();
+                    addMerchandise(1);
                     break;
                 case 4:
                     editMerchandise();
@@ -104,12 +104,17 @@ public class Merchandise {
     /**
      * Method adds a merchandise's information to database by calling the addMerchandise method in the MerchandiseSQL file
      */
-    public static void addMerchandise() throws ParseException, ClassNotFoundException, SQLException{
+    public static void addMerchandise(int num) throws ParseException, ClassNotFoundException, SQLException{
         //All the current attributes on the first iteration will be empty, as the user begins to fill in attributes
         //of the merchandise the display will be updated. Before the user selects 10, all the attributes must be filled
         //so that the merchandise can be created in the database.
         do{
-            System.out.println("0. Go back to Merchandise Menu: ");
+            if(num == 1){
+                System.out.println("0. Go back to Merchandise Menu: ");
+            } else {
+                System.out.println("0. Go back to Maintain Inventory Menu: ");
+            }
+            
             System.out.println("1. Product ID: " + productID);
             System.out.println("2. Store ID: " + storeID);
             System.out.println("3. Name: " + name);
@@ -126,7 +131,7 @@ public class Merchandise {
             input = scan.nextInt();
             scan.nextLine();
 
-            updateAttributes(input, "a");
+            updateAttributes(input, "a", num);
         } while(input != 0);
         rs.close();
     }
@@ -181,7 +186,7 @@ public class Merchandise {
                         input = scan.nextInt();
                         scan.nextLine();
                         
-                        updateAttributes(input, "e");
+                        updateAttributes(input, "e", 1);
                     } while(input != 0);
                 }
             }
@@ -208,6 +213,32 @@ public class Merchandise {
                 return;
             }
         } while(input != 0);
+    }
+
+    public static void newInventory() throws ParseException, ClassNotFoundException, SQLException{
+        do {
+            System.out.println("In order to go back to Main Menu, enter 0");
+            System.out.println("Input new inventory into database, enter 1");
+            input = scan.nextInt();
+            if(input == 1){
+                addMerchandise(0);
+        
+                System.out.println();
+                System.out.println("Update the amount owed to the supplier, please enter a Supplier ID: ");
+                input = scan.nextInt();
+                MerchandiseSQL.updateAmountOwed(input);
+            } else{
+                System.out.println("Invalid input");
+            }
+        } while(input != 0);
+    }
+
+    public static void returnInventory(){
+
+    }
+
+    public static void transferInventory(){
+
     }
 
     /**
@@ -261,7 +292,7 @@ public class Merchandise {
      * @param input
      * @param s
      */
-    public static void updateAttributes(int input, String s) throws ParseException, ClassNotFoundException, SQLException{
+    public static void updateAttributes(int input, String s, int num) throws ParseException, ClassNotFoundException, SQLException{
         switch(input){
             case 0:
                 System.out.println("Going back to Merchandise Menu");
@@ -310,7 +341,12 @@ public class Merchandise {
                         MerchandiseSQL.editMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
                     }
                     else if(s.equals("a")){
-                        MerchandiseSQL.addMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
+                        if(num == 1){
+                            MerchandiseSQL.addMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
+                        }
+                        else{
+                            MerchandiseSQL.addNewMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
+                        }
                     }
                 } catch(SQLException e){
                     System.out.println("SQL Exception");
