@@ -246,7 +246,7 @@ public class MainMenu {
             System.out.println("2. Sales growth report for a specific store for a given time period");
             System.out.println("3. Merchandise stock report for each store or for a certain product");
             System.out.println("4. Customer growth report by month or by year");
-            System.out.println("5. Customer activity report such as total purchase amount for a given time period");
+            System.out.println("5. Customer purchase report");
             
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
@@ -256,10 +256,10 @@ public class MainMenu {
                     System.out.println("Going back to Main Menu");
                     return;
                 case 1:
-                    Transaction.totalSales(false);                                 
+                    Transaction.totalSales();                                 
                     break;
                 case 2:
-                    Transaction.totalSales(true);
+                    Transaction.totalSales();
                     break;
                 case 3:
                     //Make method for this operation
@@ -285,12 +285,7 @@ public class MainMenu {
                     
                     break;
                 case 5:
-                    //Make method for this operation
-                        // SELECT SUM(total)
-                        // FROM Transaction
-                        // WHERE memberID=3
-                        // AND YEAR(date)=YEAR((SELECT CURDATE));
-                    
+                    Transaction.totalSales();                    
                     break;
                 
                 default:

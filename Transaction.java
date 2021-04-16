@@ -326,14 +326,16 @@ public class Transaction {
    * @throws SQLException
    * @throws ParseException
    */
-  public static void totalSales(boolean isStore) throws ClassNotFoundException, SQLException, ParseException
+  public static void totalSales() throws ClassNotFoundException, SQLException, ParseException
   {
     do {
       String rangeStart = "0001-01-01";
       String rangeEnd = "0001-01-01";
       int id = -1;
+      boolean isStore = false;
+      boolean isMember = false;
 
-      System.out.println("Report: Total sales");
+      System.out.println("Report: Sales and Purchase Reports");
       System.out.println();
       System.out.println("0. Return to Reports Menu");
       System.out.println("1. View total sales by day");
@@ -344,8 +346,20 @@ public class Transaction {
 
       input = scan.nextInt();
 
+      if (input != 0) {
+        System.out.println("Is this for a specific Store? (y/n)");
+        isStore = scan.next().toLowerCase().equals("y");
+        if (!isStore) {
+          System.out.println("Do you want a Member purchase report?(y/n)");
+          isMember = scan.next().toLowerCase().equals("y");
+        }
+      }
+
       if (isStore) {
         System.out.println("Please enter the ID of the store: ");
+        id = scan.nextInt();
+      } else if (isMember) {
+        System.out.println("Please enter the ID of the member: ");
         id = scan.nextInt();
       }
 
@@ -377,10 +391,12 @@ public class Transaction {
           break;
       }
 
-      rs = TransactionSQL.totalSalesReport(isStore, id, rangeStart, rangeEnd);
+      rs = TransactionSQL.totalSalesReport(isStore, isMember, id, rangeStart, rangeEnd);
       rs.next();
       if (isStore) {
         System.out.println("Total Sales for Store " + id + " for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
+      } else if (isMember) {
+        System.out.println("Total Sales for Member " + id + " for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
       } else {
         System.out.println("Total Sales for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
       }
