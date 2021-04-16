@@ -285,4 +285,64 @@ public class SignUp {
                 System.out.println("Invalid input");
         }
     }
+
+    public static void memberGrowth() throws ClassNotFoundException, SQLException, ParseException
+    {
+        do {
+            String rangeStart = "0001-01-01";
+            String rangeEnd = "0001-01-01";
+            int storeID = -1;
+            boolean isStore = false; // Is this for a specific store?
+
+            System.out.println("Report: Customer Growth");
+            System.out.println();
+            System.out.println("0. Return to Reports Menu");
+            System.out.println("1. View customer growth by month");
+            System.out.println("2. View customer growth by year");
+            System.out.println();
+            System.out.print("Please choose an option from the menu: ");
+
+            input = scan.nextInt();
+
+            if (input != 0) {
+                System.out.println("Is this for a specific store? (y/n)");
+                isStore = scan.next().toLowerCase().equals("y");
+            }
+
+            if (isStore) {
+                System.out.println("Please enter the ID of the store: ");
+                storeID = scan.nextInt();
+            }
+
+            switch(input) {
+                case 0:
+                    System.out.println("Going back to Reports Menu");
+                    return;
+                case 1:
+                    System.out.println("Please input Start year in the format YYYY");
+                    rangeStart = String.valueOf(scan.nextInt()) + rangeStart.substring(4);
+                    System.out.println("Please input Start month in the format MM");
+                    rangeStart = rangeStart.toString().substring(0, 5) + String.valueOf(scan.nextInt()) + "-01";
+                    System.out.println("Please input End year in the format YYYY");
+                    rangeEnd = String.valueOf(scan.nextInt()) + rangeEnd.substring(4);
+                    System.out.println("Please input End month in the format MM");
+                    rangeEnd = rangeEnd.substring(0, 5) + String.valueOf(scan.nextInt()) + "-01";
+                    break;
+                case 2:
+                    System.out.println("Please input Start year in the format YYYY");
+                    rangeStart = String.valueOf(scan.nextInt()) + "-01-01";
+                    System.out.println("Please input End year in the format YYYY");
+                    rangeEnd = String.valueOf(scan.nextInt()) + "-01-01";
+                    break;
+            }
+
+            rs = SignUpSQL.growthReport(isStore, storeID, rangeStart, rangeEnd);
+            rs.next();
+            if (isStore) {
+                System.out.println("Total new member sign ups for Store " + storeID + " for period between " + rangeStart + " and " + rangeEnd + ": " + rs.getInt("COUNT(memberID)"));
+            } else {
+                System.out.println("Total new member sign ups for period between " + rangeStart + " and " + rangeEnd + ": " + rs.getInt("COUNT(memberID)"));
+            }
+        } while (input != 0);
+    }
 }

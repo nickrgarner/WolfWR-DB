@@ -1,6 +1,4 @@
 import java.sql.*;
-import java.util.*;
-import java.io.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.sql.SQLException;
@@ -166,5 +164,30 @@ public class SignUpSQL {
             System.out.println("SQL Exception");
             System.out.println(e.getStackTrace());
         }
+    }
+
+    public static ResultSet growthReport(boolean isStore, int storeID, String start, String end) throws ClassNotFoundException, SQLException, ParseException
+    {
+        ResultSet returnSet = null;
+        PreparedStatement ps = null;
+
+        try {
+            if (isStore) {
+                ps = connection.prepareStatement("SELECT COUNT(memberID) FROM SignUp WHERE storeID = ? AND signUpDate BETWEEN ? AND ?;");
+                ps.setInt(1, storeID);
+                ps.setString(2, start);
+                ps.setString(3, end);
+            } else {
+                ps = connection.prepareStatement("SELECT COUNT(memberID) FROM SignUp WHERE signUpDate BETWEEN ? AND ?;");
+                ps.setString(1, start);
+                ps.setString(2, end);
+            }
+            returnSet = ps.executeQuery();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return returnSet;
     }
 }
