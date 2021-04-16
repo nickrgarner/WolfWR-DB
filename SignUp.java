@@ -1,17 +1,17 @@
 import java.sql.*;
 import java.util.*;
-import java.io.*;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.sql.Date;
 
 public class SignUp {
     static Scanner scan = new Scanner(System.in);
-    static int input = 0;
+    static int input = -1;
     static ResultSet rs = null;
 
     //Declaring and Instantiating all the attribute of a SignUp
     static int storeID = 0;
-    static Date signUpDate = 0001-01-01;
+    static Date signUpDate = Date.valueOf("0001-01-01");
     static int staffID = 0;
     static int memberID = 0;
 
@@ -37,9 +37,9 @@ public class SignUp {
             input = scan.nextInt();
 
             switch(input){
-                case 6:
+                case 0:
                     System.out.println("Going back to Main Menu");
-                    break;
+                    return;
                 case 1:
                     viewAllSignUps();
                     break;
@@ -59,6 +59,7 @@ public class SignUp {
                     System.out.println("Invalid input");
                     break;
             }
+            input = -1;
         } while(input != 0); 
     }
 
@@ -68,7 +69,7 @@ public class SignUp {
     public static void viewAllSignUps() throws ClassNotFoundException, SQLException, ParseException{
         try{
             rs = SignUpSQL.viewAllSignUps();
-            printMember(rs);
+            printSignUp(rs);
         }
         catch(SQLException e){
             System.out.println("SQL Exception");
@@ -91,7 +92,7 @@ public class SignUp {
 
             if(input > 0){
                 rs = SignUpSQL.viewSignUp(input);
-                printMember(rs);
+                printSignUp(rs);
                 rs.close();
 
             } else if(input < 0){
@@ -226,10 +227,10 @@ public class SignUp {
     * This method is used to reset all the variables to "", 0, or false
     */
     public static void resetAttributes(){
-        int storeID = 0;
-        Date signUpDate = 0001-01-01;
-        int staffID = 0;
-        int memberID = 0;
+        storeID = 0;
+        signUpDate = Date.valueOf("0001-01-01");
+        staffID = 0;
+        memberID = 0;
     }
 
     /**
@@ -252,16 +253,16 @@ public class SignUp {
                 memberID = scan.nextInt();
                 break;
             case 2:
-                System.out.println("Enter Sign Up Date:");
-                firstName = scan.nextLine();
+                System.out.println("Enter Sign Up Date in the format YYYY-MM-DD:");
+                signUpDate = Date.valueOf(scan.nextLine());
                 break;
             case 3:
                 System.out.println("Enter Staff ID:");
-                lastName = scan.nextLine();
+                staffID = scan.nextInt();
                 break;
             case 4:
                 System.out.println("Enter Member ID:");
-                level = scan.nextLine();
+                memberID = scan.nextInt();
                 break;
             case 5:
                 try{
