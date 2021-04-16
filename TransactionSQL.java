@@ -173,4 +173,45 @@ public class TransactionSQL {
       System.out.println("SQL Exception: " + e.getStackTrace());
     }
   }
+
+  /**
+   * Queries the Transaction relation for total sales revenue between two dates
+   * @param isStore Are we querying for a specific store?
+   * @param isMember Are we getting purchase data for a member?
+   * @param start Start date of the range in question
+   * @param end End date of the range in question
+   * @return ResultSet containing sum total of transactions within the date range
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
+  public static ResultSet totalSalesReport(boolean isStore, boolean isMember, int id, String start, String end) throws ClassNotFoundException, SQLException, ParseException
+  {
+    ResultSet returnSet = null;
+    PreparedStatement ps = null;
+
+    try {
+      if (isStore) {
+        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE storeID = ? AND date BETWEEN ? AND ?;");
+        ps.setInt(1, id);
+        ps.setString(2, start);
+        ps.setString(3, end);
+      } else if (isMember) {
+        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE memberID = ? AND date BETWEEN ? AND ?;");
+        ps.setInt(1, id);
+        ps.setString(2, start);
+        ps.setString(3, end);
+      } else {
+        ps = connection.prepareStatement("SELECT SUM(total) FROM Transaction WHERE date BETWEEN ? AND ?;");
+        ps.setString(1, start);
+        ps.setString(2, end);
+      }
+      returnSet = ps.executeQuery();
+      ps.close();
+    } catch (SQLException e) {
+      System.out.println("SQL Exception: " + e.getStackTrace());
+      return null;
+    }
+    return returnSet;
+  }
 }

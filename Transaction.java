@@ -321,6 +321,91 @@ public class Transaction {
   }
 
   /**
+   * Menu for Total Sales report. Prompts user for date range then calls SQL method to get sum.
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
+  public static void totalSales() throws ClassNotFoundException, SQLException, ParseException
+  {
+    do {
+      String rangeStart = "0001-01-01";
+      String rangeEnd = "0001-01-01";
+      int id = -1;
+      boolean isStore = false;
+      boolean isMember = false;
+
+      System.out.println("Report: Sales and Purchase Reports");
+      System.out.println();
+      System.out.println("0. Return to Reports Menu");
+      System.out.println("1. View total sales by day");
+      System.out.println("2. View total sales by month");
+      System.out.println("3. View total sales by year");
+      System.out.println();
+      System.out.print("Please choose an option from the menu: ");
+
+      input = scan.nextInt();
+
+      if (input != 0) {
+        System.out.println("Is this for a specific Store? (y/n)");
+        isStore = scan.next().toLowerCase().equals("y");
+        if (!isStore) {
+          System.out.println("Do you want a Member purchase report?(y/n)");
+          isMember = scan.next().toLowerCase().equals("y");
+        }
+      }
+
+      if (isStore) {
+        System.out.println("Please enter the ID of the store: ");
+        id = scan.nextInt();
+      } else if (isMember) {
+        System.out.println("Please enter the ID of the member: ");
+        id = scan.nextInt();
+      }
+
+      switch(input) {
+        case 0:
+          System.out.println("Going back to Reports Menu");
+          return;
+        case 1:
+          System.out.println("Please input Start Date in the format YYYY-MM-DD:");
+          rangeStart = scan.next();
+          System.out.println("Please input End Date in the format YYYY-MM-DD:");
+          rangeEnd = scan.next();
+          break;
+        case 2:
+          System.out.println("Please input Start year in the format YYYY");
+          rangeStart = String.valueOf(scan.nextInt()) + rangeStart.substring(4);
+          System.out.println("Please input Start month in the format MM");
+          rangeStart = rangeStart.toString().substring(0, 5) + String.valueOf(scan.nextInt()) + "-01";
+          System.out.println("Please input End year in the format YYYY");
+          rangeEnd = String.valueOf(scan.nextInt()) + rangeEnd.substring(4);
+          System.out.println("Please input End month in the format MM");
+          rangeEnd = rangeEnd.substring(0, 5) + String.valueOf(scan.nextInt()) + "-01";
+          break;
+        case 3:
+          System.out.println("Please input Start year in the format YYYY");
+          rangeStart = String.valueOf(scan.nextInt()) + "-01-01";
+          System.out.println("Please input End year in the format YYYY");
+          rangeEnd = String.valueOf(scan.nextInt()) + "-01-01";
+          break;
+      }
+
+      rs = TransactionSQL.totalSalesReport(isStore, isMember, id, rangeStart, rangeEnd);
+      rs.next();
+      if (isStore) {
+        System.out.println("Total Sales for Store " + id + " for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
+      } else if (isMember) {
+        System.out.println("Total Sales for Member " + id + " for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
+      } else {
+        System.out.println("Total Sales for period between " + rangeStart + " and " + rangeEnd + ": $" + rs.getDouble("SUM(total)"));
+      }
+      System.out.println();
+
+    } while (input != 0);
+  }
+
+  /**
    * Resets Transaction attributes back to default.
    */
   public static void resetAttributes()
