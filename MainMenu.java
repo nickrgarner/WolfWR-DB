@@ -3,7 +3,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
- * This is the Main Menu that will be displayed when the application is ran. This menu will allow the user to 
+ * This is the Main Menu that will be displayed when the application is ran. This menu will allow the user to
  * navigate through the different functionalities of application.
  */
 public class MainMenu {
@@ -14,7 +14,7 @@ public class MainMenu {
         try {
             System.out.println("Welcome to our application for WolfWR, a WolfCity  wholesale store chain");
             System.out.println();
-            
+
             //This do while loop will reprompt the Main Menu options that the application can do
             do{
                 System.out.println("0. Exit");
@@ -54,8 +54,8 @@ public class MainMenu {
     }
 
     /**
-     * Information processing. Enter/update/delete basic 
-     * information about stores, customers, staff, and suppliers. 
+     * Information processing. Enter/update/delete basic
+     * information about stores, customers, staff, and suppliers.
      * Manage promotion or sale information for products.”
      */
     public static void informationProcessMenu() throws ClassNotFoundException, ParseException, SQLException
@@ -111,8 +111,8 @@ public class MainMenu {
         } while(input != 0);
     }
     /**
-     * Create inventory for newly arrived products. 
-     * Update inventory with returns. Manage product transfers 
+     * Create inventory for newly arrived products.
+     * Update inventory with returns. Manage product transfers
      * between stores in the chain.
      */
     public static void maintainInventoryMenu() throws ClassNotFoundException, ParseException, SQLException
@@ -132,15 +132,15 @@ public class MainMenu {
                     System.out.println("Going back to Main Menu");
                     return;
                 case 1:
-                    //Make a method for this operation       
+                    //Make a method for this operation
                         //INSERT INTO Merchandise
                         Merchandise.addMerchandise();
                         //UPDATE Supplier with SET
-                                 
+
                     break;
                 case 2:
                     //Make method for this operation
-                    
+
                         //UPDATE Merchandise with SET
                         //UPDATE Member with SET
                         //DELETE FROM Transaction
@@ -153,7 +153,7 @@ public class MainMenu {
                         //INSERT INTO Merchandise
                     Merchandise.addMerchandise();
                     break;
-                
+
                 default:
                     System.out.println("Invalid input");
                     break;
@@ -163,10 +163,10 @@ public class MainMenu {
     }
 
     /**
-     * Maintaining billing and transaction records. Create or generate bills 
-     * that are to be paid to a specific supplier.  Generate reward 
-     * checks for platinum customers that are due at the end of the year. 
-     * For each transaction, calculate the total price, check if any item is on sale or not and, 
+     * Maintaining billing and transaction records. Create or generate bills
+     * that are to be paid to a specific supplier.  Generate reward
+     * checks for platinum customers that are due at the end of the year.
+     * For each transaction, calculate the total price, check if any item is on sale or not and,
      * if it is, apply discounts according to the discount information.
      */
     public static void maintainBillingTransactions() throws ClassNotFoundException, ParseException, SQLException
@@ -179,7 +179,7 @@ public class MainMenu {
             System.out.println("3. For each transaction, calculate the total price");
             System.out.println("4. Check if any item is on sale or not");
             System.out.println("5. If item is on sale, apply discounts according to the discount information.");
-            
+
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
             System.out.println();
@@ -188,9 +188,9 @@ public class MainMenu {
                     System.out.println("Going back to Main Menu");
                     return;
                 case 1:
-                    //Make a method for this operation       
-                        //SELECT amountOweed FROM Supplier WHERE Supplier = ?
-                                 
+                    Supplier.createSupplierBill();
+                    //Make a method for this operation
+                        //SELECT amountOweed FROM Supplier WHERE Supplier = ?           
                     break;
                 case 2:
                     //Make method for this operation
@@ -211,7 +211,7 @@ public class MainMenu {
                         //WHERE Transaction.transactionID = ?
                         //AND Discount.startDate <= Transaction.date
                         //AND Discount.endDate >= Transaction.date;
-                    
+
                     break;
                 case 5:
                     //Make method for this operation
@@ -219,9 +219,9 @@ public class MainMenu {
                         //SET total = total - quantity * 10.00
                         //WHERE transactionID = ?
                         //AND productID = ?
-                    
+
                     break;
-                
+
                 default:
                     System.out.println("Invalid input");
                     break;
@@ -231,10 +231,10 @@ public class MainMenu {
     }
 
     /**
-     * Reports: Generate all of the following reports. General reports such 
-     * as total sales report by day, by month, or by year. Sales growth report 
-     * for a specific store for a given time period. Merchandise stock report for each 
-     * store or for a certain product. Customer growth report by month or by year. 
+     * Reports: Generate all of the following reports. General reports such
+     * as total sales report by day, by month, or by year. Sales growth report
+     * for a specific store for a given time period. Merchandise stock report for each
+     * store or for a certain product. Customer growth report by month or by year.
      * Customer activity report such as total purchase amount for a given time period.
      */
     public static void reports() throws ClassNotFoundException, ParseException, SQLException
@@ -247,7 +247,7 @@ public class MainMenu {
             System.out.println("3. Merchandise stock report for each store or for a certain product");
             System.out.println("4. Customer growth report by month or by year");
             System.out.println("5. Customer purchase report");
-            
+
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
             System.out.println();
@@ -256,7 +256,7 @@ public class MainMenu {
                     System.out.println("Going back to Main Menu");
                     return;
                 case 1:
-                    Transaction.totalSales();                                 
+                    Transaction.totalSales();
                     break;
                 case 2:
                     Transaction.totalSales();
@@ -276,9 +276,9 @@ public class MainMenu {
                     SignUp.memberGrowth();
                     break;
                 case 5:
-                    Transaction.totalSales();                    
+                    Transaction.totalSales();
                     break;
-                
+
                 default:
                     System.out.println("Invalid input");
                     break;

@@ -295,4 +295,47 @@ public class Supplier {
                 System.out.println("Invalid input");
         }
     }
+    /**
+     * Method creates a bill for a single supplier
+     */
+    public static void createSupplierBill() throws ClassNotFoundException, SQLException, ParseException {
+        do{
+            System.out.println("In order to go back to billing and transaction, enter 0");
+            System.out.println("Please enter a supplier ID to generate a supplier bill");
+            System.out.println();
+            System.out.println("Supplier ID: ");
+
+            input = scan.nextInt();
+            scan.nextLine();
+
+            if(input > 0){
+                rs = SupplierSQL.viewSupplier(input);
+                if(!rs.next()){
+                    System.out.println("There is no supplier with this supplierID");
+                } else {
+                  //rs.next();
+                  supplierID = rs.getInt("supplierID");
+                  name = rs.getString("name");
+                  phone = rs.getString("phone");
+                  email = rs.getString("email");
+                  location = rs.getString("location");
+                  amountOwed = rs.getDouble("amountOwed");
+                  System.out.println("Supplier Bill For " + name);
+                  System.out.println("Total Amount Owed " + amountOwed);
+                  System.out.println("Send Bill to " + location);
+                  System.out.println("Supplier Contact Information ");
+                  System.out.println("phone " + phone);
+                  System.out.println("email " + email);
+                  System.out.println();
+                  rs.close();
+                }
+
+            } else if(input < 0){
+                System.out.println("Invalid input");
+            } else if(input == 0){
+                System.out.println("Going back to Supplier Menu");
+                return;
+            }
+        } while(input != 0);
+    }
 }
