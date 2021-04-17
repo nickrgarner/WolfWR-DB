@@ -190,7 +190,7 @@ public class MainMenu {
                 case 1:
                     Supplier.createSupplierBill();
                     //Make a method for this operation
-                        //SELECT amountOweed FROM Supplier WHERE Supplier = ?           
+                        //SELECT amountOweed FROM Supplier WHERE Supplier = ?
                     break;
                 case 2:
                     //Make method for this operation
@@ -262,15 +262,7 @@ public class MainMenu {
                     Transaction.totalSales();
                     break;
                 case 3:
-                    //Make method for this operation
-                        // SELECT *
-                        // FROM Merchandise
-                        // WHERE storeID=1;
-
-                        // SELECT *
-                        // FROM Merchandise
-                        // WHERE productID=3;
-
+                    Merchandise.viewStockReport();
                     break;
                 case 4:
                     SignUp.memberGrowth();
