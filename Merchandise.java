@@ -58,7 +58,8 @@ public class Merchandise {
                     System.out.println("Invalid input");
                     break;
             }
-        } while(input != 0); 
+            input = -1;
+        } while(input != 0);
     }
 
     /**
@@ -74,6 +75,8 @@ public class Merchandise {
             e.getStackTrace();
         }
     }
+
+
     /**
      * Method displays information of a single merchandise
      */
@@ -101,9 +104,99 @@ public class Merchandise {
         } while(input != 0);
     }
     /**
-     * Method adds a merchandise's information to database by calling the addMerchandise method in the MerchandiseSQL file.
-     * This method is used in the MerchandiseMenu and the addNewInventory method. If the maintain boolean is true, the 
-     * query to addNewInventory will be executed, if false then addMerchandise query will be executed.
+     * Merchandise stock report menu, users choose to view products by product ID or by Store ID
+     */
+    public static void viewStockReport() throws ClassNotFoundException, SQLException, ParseException {
+      do{
+          System.out.println("Merchandise Stock Report Menu");
+          System.out.println("0. Go back to Merchandise Stock Report Menu:");
+          System.out.println("1. Merchandise Stock Report For A Store");
+          System.out.println("2. Merchandise Stock Report For A Product");
+
+          System.out.print("Please choose one of the options above: ");
+          input = scan.nextInt();
+          System.out.println();
+          switch(input){
+              case 0:
+                  System.out.println("Going back to Merchandise Report Menu");
+                  return;
+              case 1:
+                  storeStockReport();
+                  break;
+              case 2:
+                  productStockReport();
+                  break;
+              default:
+                  System.out.println("Invalid input");
+                  break;
+          }
+          input = -1;
+      } while(input != 0);
+    }
+    /**
+     * Method displays all the merchandise for a single store
+     */
+    public static void storeStockReport() throws ClassNotFoundException, SQLException, ParseException {
+        do{
+            System.out.println();
+            System.out.println("In order to go back to the stock report menu, enter 0");
+            System.out.println("Please enter a store ID to view its merchandise stock report");
+            System.out.println();
+            System.out.println("Store ID: ");
+
+            input = scan.nextInt();
+            scan.nextLine();
+
+            if(input > 0){
+                rs = MerchandiseSQL.storeMerchandiseStockReport(input);
+                System.out.println("** Stock Report **");
+                if(!rs.next()){
+                    System.out.println("This Store Has No Merchandise");
+                } else{
+                  printMerchandise(rs);
+                  rs.close();
+                }
+
+            } else if(input < 0){
+                System.out.println("Invalid input");
+            } else if(input == 0){
+                System.out.println("Going back to Reports Menu");
+                return;
+            }
+        } while(input != 0);
+    }
+    /**
+     * Method displays information for a single product
+     */
+    public static void productStockReport() throws ClassNotFoundException, SQLException, ParseException {
+        do{
+            System.out.println();
+            System.out.println("In order to go back to the stock report menu, enter 0");
+            System.out.println("Please enter a product ID to view its report");
+            System.out.println();
+            System.out.println("Product ID: ");
+
+            input = scan.nextInt();
+            scan.nextLine();
+
+            if(input > 0){
+                rs = MerchandiseSQL.viewMerchandise(input);
+                System.out.println("** Stock Report for Product **");
+                printMerchandise(rs);
+                rs.close();
+
+            } else if(input < 0){
+                System.out.println("Invalid input");
+            } else if(input == 0){
+                System.out.println("Going back to Reports Menu");
+                return;
+            }
+        } while(input != 0);
+    }
+
+
+    /**
+     * Method adds a merchandise's information to database by calling the addMerchandise method in the MerchandiseSQL file
      */
     public static void addMerchandise(boolean maintain) throws ParseException, ClassNotFoundException, SQLException{
         //All the current attributes on the first iteration will be empty, as the user begins to fill in attributes
@@ -161,10 +254,10 @@ public class Merchandise {
                 if(!rs.next()){
                     System.out.println("Merchandise does not exist");
                 } else{
-                    //The merchadise exists and all the attributes of that merchandise are being stored into variables so 
+                    //The merchadise exists and all the attributes of that merchandise are being stored into variables so
                     //that they can be displayed to the user. In order for them to choose which attribute to edit.
                     productID = rs.getInt("productID");
-                    storeID = rs.getInt("storeID"); 
+                    storeID = rs.getInt("storeID");
                     name = rs.getString("name");
                     quantity = rs.getInt("quantity");
                     buyPrice =rs.getDouble("buyPrice");
@@ -188,11 +281,10 @@ public class Merchandise {
                         System.out.println("10. After all attributes have been entered, select 10 to create the new merchandise:");
                         System.out.println();
                         System.out.println("Select a number to edit merchandise information: ");
-                        
-            
+
+
                         input = scan.nextInt();
                         scan.nextLine();
-                        
                         updateAttributes(input, "e", false);
                     } while(input != 0);
                 }
@@ -356,10 +448,10 @@ public class Merchandise {
                 expiration = rs.getDate("expiration");
                 supplierID = rs.getInt("supplierID");
                 System.out.println("Product ID: " + productID + ", store ID: " + storeID + ", name: " + name + ", quantity: "
-                                    + quantity + ", buy price: " + buyPrice + ", market price: " + marketPrice + ", production date: " + productionDate 
+                                    + quantity + ", buy price: " + buyPrice + ", market price: " + marketPrice + ", production date: " + productionDate
                                     + ", expiration: "+ expiration + ", supplier ID: " + supplierID);
             } while(rs.next());
-            
+
         }
     }
 
