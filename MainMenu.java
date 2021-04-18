@@ -178,9 +178,7 @@ public class MainMenu {
                     Supplier.createSupplierBill();
                     break;
                 case 2:
-                    //Make method for this operation
-                        //SELECT rewardAmount FROM Member Where MemberID = ?
-
+                    Member.rewardCheck();
                     break;
                 case 3:
                     //Make method for this operation
