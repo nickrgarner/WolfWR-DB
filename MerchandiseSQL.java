@@ -341,7 +341,9 @@ public class MerchandiseSQL {
         try{
             // Check if member is Platinum level
             memberSearch = connection.prepareStatement("SELECT * FROM Member WHERE memberID = ?;");
+            memberSearch.setInt(1, memberID);
             member = memberSearch.executeQuery();
+            member.next();
             boolean isPlatinum = member.getString("level").toLowerCase().equals("platinum");
 
             // Turn off auto-commit
