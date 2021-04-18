@@ -161,10 +161,10 @@ public class MainMenu {
         do{
             System.out.println("Maintain Billing and Transactions Menu");
             System.out.println("0. Go back to Main Menu:");
-            System.out.println("1. Create or generate bills that are to be paid to a specific supplier");
-            System.out.println("2. Generate reward checks for platinum customers that are due at the end of the year");
-            System.out.println("3. For each transaction, calculate the total price");
-            System.out.println("4. Check if any item is on sale or not");
+            System.out.println("1. Generate Supplier Bill");
+            System.out.println("2. Generate Member Reward Check");
+            System.out.println("3. Calculate Transaction Totals");
+            System.out.println("4. Check Transaction for Discounts");
 
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
@@ -205,11 +205,11 @@ public class MainMenu {
         do{
             System.out.println("Reports Menu");
             System.out.println("0. Go back to Main Menu:");
-            System.out.println("1. Total sales report by day, month, or year");
-            System.out.println("2. Sales growth report for a specific store for a given time period");
-            System.out.println("3. Merchandise stock report for each store or for a certain product");
-            System.out.println("4. Customer growth report by month or by year");
-            System.out.println("5. Customer purchase report");
+            System.out.println("1. Total Sales Report by day, month, or year");
+            System.out.println("2. Sales Growth Report for Specific Store");
+            System.out.println("3. Merchandise Stock report");
+            System.out.println("4. Customer Growth Report");
+            System.out.println("5. Customer Purchase Report");
 
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();

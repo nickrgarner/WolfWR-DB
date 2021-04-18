@@ -322,11 +322,11 @@ public class Supplier {
                   location = rs.getString("location");
                   amountOwed = rs.getDouble("amountOwed");
                   System.out.println("Supplier Bill For " + name);
-                  System.out.println("Total Amount Owed " + amountOwed);
+                  System.out.println("Total Amount Owed $" + amountOwed);
                   System.out.println("Send Bill to " + location);
                   System.out.println("Supplier Contact Information ");
-                  System.out.println("phone " + phone);
-                  System.out.println("email " + email);
+                  System.out.println("Phone " + phone);
+                  System.out.println("Email " + email);
                   System.out.println();
                   rs.close();
                 }

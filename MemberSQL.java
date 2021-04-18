@@ -107,7 +107,7 @@ public class MemberSQL{
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
     /**
@@ -156,7 +156,7 @@ public class MemberSQL{
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
     /**
@@ -178,7 +178,7 @@ public class MemberSQL{
             }
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
@@ -199,12 +199,14 @@ public class MemberSQL{
         ResultSet member = null;
         ResultSet resultSet = null;
 
-        int id = -1;
-
         try{
             // Check if member is Platinum level
             memberSearch = connection.prepareStatement("SELECT * FROM Member WHERE memberID = ?;");
+            memberSearch.setInt(1, memberID);
             member = memberSearch.executeQuery();
+            if (!member.next()) {
+                return null;
+            }
             boolean isPlatinum = member.getString("level").toLowerCase().equals("platinum");
 
             if (isPlatinum) {
@@ -212,13 +214,12 @@ public class MemberSQL{
                 ps.setInt(1,memberID);
                 
                 resultSet = ps.executeQuery();
-                System.out.println(id);
             }
             ps.close();
         } 
         catch(SQLException e){
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             return null;
         }
         return resultSet;

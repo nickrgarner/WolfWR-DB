@@ -31,7 +31,7 @@ public class MerchandiseSQL {
             ps.close();
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             return null;
         }
         return returnSet;
@@ -59,7 +59,7 @@ public class MerchandiseSQL {
             ps.close();
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             return null;
         }
         return returnSet;
@@ -88,7 +88,7 @@ public class MerchandiseSQL {
             ps.close();
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             return null;
         }
         return returnSet;
@@ -171,7 +171,7 @@ public class MerchandiseSQL {
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
     /**
@@ -221,7 +221,7 @@ public class MerchandiseSQL {
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
     /**
@@ -243,7 +243,7 @@ public class MerchandiseSQL {
             }
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
@@ -309,7 +309,7 @@ public class MerchandiseSQL {
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
     
@@ -341,7 +341,9 @@ public class MerchandiseSQL {
         try{
             // Check if member is Platinum level
             memberSearch = connection.prepareStatement("SELECT * FROM Member WHERE memberID = ?;");
+            memberSearch.setInt(1, memberID);
             member = memberSearch.executeQuery();
+            member.next();
             boolean isPlatinum = member.getString("level").toLowerCase().equals("platinum");
 
             // Turn off auto-commit
@@ -399,7 +401,7 @@ public class MerchandiseSQL {
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             connection.setAutoCommit(true);
         }
     }
@@ -475,7 +477,7 @@ public class MerchandiseSQL {
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             connection.setAutoCommit(true);
         }
     }

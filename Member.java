@@ -232,13 +232,13 @@ public class Member{
 
                 rs = MemberSQL.rewardCheck(memberID);
 
-                if(!rs.next()){
+                if (rs == null) {
+                    System.out.println("Member does not exist");
+                } else if(!rs.next()){
                     System.out.println("This member has no rewards");
                 } else{
-                    System.out.println("Reward Check for Member " + rs.getInt("memberID") + ": " + rs.getInt("rewardAmount"));  
+                    System.out.println("Reward Check for Member " + memberID + ": $" + rs.getDouble("rewardAmount"));
                 }
-                rs.close();
-
             } else{
                 System.out.println("Invalid input");
             }

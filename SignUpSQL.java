@@ -30,7 +30,7 @@ public class SignUpSQL {
             ps.close();
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             return null;
         }
         return returnSet;
@@ -98,7 +98,7 @@ public class SignUpSQL {
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
@@ -139,7 +139,7 @@ public class SignUpSQL {
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
@@ -162,7 +162,7 @@ public class SignUpSQL {
             }
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
