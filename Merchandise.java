@@ -46,7 +46,7 @@ public class Merchandise {
                     viewMerchandise();
                     break;
                 case 3:
-                    addMerchandise(1);
+                    addMerchandise(false);
                     break;
                 case 4:
                     editMerchandise();
@@ -58,7 +58,6 @@ public class Merchandise {
                     System.out.println("Invalid input");
                     break;
             }
-            input = -1;
         } while(input != 0); 
     }
 
@@ -102,17 +101,19 @@ public class Merchandise {
         } while(input != 0);
     }
     /**
-     * Method adds a merchandise's information to database by calling the addMerchandise method in the MerchandiseSQL file
+     * Method adds a merchandise's information to database by calling the addMerchandise method in the MerchandiseSQL file.
+     * This method is used in the MerchandiseMenu and the addNewInventory method. If the maintain boolean is true, the 
+     * query to addNewInventory will be executed, if false then addMerchandise query will be executed.
      */
-    public static void addMerchandise(int num) throws ParseException, ClassNotFoundException, SQLException{
+    public static void addMerchandise(boolean maintain) throws ParseException, ClassNotFoundException, SQLException{
         //All the current attributes on the first iteration will be empty, as the user begins to fill in attributes
         //of the merchandise the display will be updated. Before the user selects 10, all the attributes must be filled
         //so that the merchandise can be created in the database.
         do{
-            if(num == 1){
-                System.out.println("0. Go back to Merchandise Menu: ");
-            } else {
+            if(maintain == true){
                 System.out.println("0. Go back to Maintain Inventory Menu: ");
+            } else {
+                System.out.println("0. Go back to Merchandise Menu: ");
             }
             
             System.out.println("1. Product ID: " + productID);
@@ -131,7 +132,13 @@ public class Merchandise {
             input = scan.nextInt();
             scan.nextLine();
 
-            updateAttributes(input, "a", num);
+            if(input == 0){
+                resetAttributes();
+                return;
+            }
+
+            updateAttributes(input, "a", maintain);
+            input = -1;
         } while(input != 0);
         rs.close();
     }
@@ -186,7 +193,7 @@ public class Merchandise {
                         input = scan.nextInt();
                         scan.nextLine();
                         
-                        updateAttributes(input, "e", 1);
+                        updateAttributes(input, "e", false);
                     } while(input != 0);
                 }
             }
@@ -231,7 +238,7 @@ public class Merchandise {
                 return;
             }
             else if(input == 1){
-                addMerchandise(0);
+                addMerchandise(true);
             } else{
                 System.out.println("Invalid input");
             }
@@ -370,21 +377,21 @@ public class Merchandise {
 
     /**
      * From option that the user selects, this switch statement will prompt the user for the new value for 
-     * specific attribute.
+     * specific attribute. If the maintain boolean is true, the addNewInventory query will be used to add merchandise to the 
+     * database. If the maintain boolean is false, the addMerchandise query will be used to add merchandise.
      * Case 10 will take all the updated attributes and update the merchandise in the query. Afterwards, it will
      * reset all the variable fields to "" , 0, or false.
      * @param input
      * @param s
      */
-    public static void updateAttributes(int input, String s, int num) throws ParseException, ClassNotFoundException, SQLException{
+    public static void updateAttributes(int input, String s, boolean maintain) throws ParseException, ClassNotFoundException, SQLException{
         switch(input){
             case 0:
-                if(num == 1){
-                    System.out.println("0. Go back to Merchandise Menu: ");
-                } else {
+                if(maintain == true){
                     System.out.println("0. Go back to Maintain Inventory Menu: ");
+                } else {
+                    System.out.println("0. Go back to Merchandise Menu: ");
                 }
-                System.out.println();
                 resetAttributes();
                 return;
             case 1:
@@ -429,11 +436,12 @@ public class Merchandise {
                         MerchandiseSQL.editMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
                     }
                     else if(s.equals("a")){
-                        if(num == 1){
-                            MerchandiseSQL.addMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
+                        if(maintain == true){
+                            MerchandiseSQL.addNewMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
                         }
                         else{
-                            MerchandiseSQL.addNewMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
+                            MerchandiseSQL.addMerchandise(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID);
+
                         }
                     }
                 } catch(SQLException e){

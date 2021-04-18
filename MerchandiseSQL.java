@@ -228,8 +228,10 @@ public class MerchandiseSQL {
             }
 
             id = 0;
-            ps2 = connection.prepareStatement("UPDATE Supplier SET amountOwed = amountOwed + (0.02*10000) where supplierID = ?;");
-            ps2.setInt(1,supplierID);
+            ps2 = connection.prepareStatement("UPDATE Supplier SET amountOwed = amountOwed + (?*?) where supplierID = ?;");
+            ps2.setDouble(1,buyPrice);
+            ps2.setInt(2,quantity);
+            ps2.setInt(3,supplierID);
             
             id = ps2.executeUpdate();
             connection.commit();
