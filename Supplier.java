@@ -201,6 +201,13 @@ public class Supplier {
         } while(input != 0);
     }
     /**
+     * Method is called in the MainMenu file under maintainBillingTransactions. This method will prompt user
+     * for a transactionID to be passed to transactionTotal in TransactionSQL to generate the query.
+     */
+    public static void transactionTotal(){
+
+    }
+    /**
      * Method is used in all the methods above to print out the information of a supplier. This method takes in
      * a ResultSet and then prints out all the attributes each supplier of the ResultSet.
      * @param rs

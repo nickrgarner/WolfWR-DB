@@ -212,6 +212,39 @@ public class Member{
             }
         } while(input != 0);
     }
+
+    /**
+     * Method is called in the MainMenu file under maintainBillingTransactions. This method will prompt user
+     * for member ID to be passed to rewardCheck in MemberSQL to generate the query.
+     */
+    public static void rewardCheck() throws ParseException, ClassNotFoundException, SQLException{
+        do {
+            System.out.println("In order to go back to Main Menu, enter 0");
+            System.out.println("Generate reward check for platinum member, enter 1");
+            input = scan.nextInt();
+
+            if(input == 0){
+                return;
+            } else if (input == 1){
+                System.out.println("In order to generate the reward check, please enter a memberID");
+                memberID = scan.nextInt();
+
+                rs = MemberSQL.rewardCheck(memberID);
+
+                if(!rs.next()){
+                    System.out.println("This member has no rewards");
+                } else{
+                    rs.next();
+                    System.out.println("Reward Check for Member " + rs.getInt("memberID") + ": " + rs.getInt("rewardAmount"));  
+                }
+                rs.close();
+
+            } else{
+                System.out.println("Invalid input");
+            }
+        } while(input != 0);
+    }
+    
     /**
      * Method is used in all the methods above to print out the information of a member. This method takes in 
      * a ResultSet and then prints out all the attributes each member of the ResultSet.
