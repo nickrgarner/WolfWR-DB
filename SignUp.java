@@ -25,7 +25,7 @@ public class SignUp {
         do{
             System.out.println("SignUp Menu");
             System.out.println();
-            System.out.println("0. Return to Main Menu");
+            System.out.println("0. Return to Information Processing Menu");
             System.out.println("1. View All SignUps");
             System.out.println("2. View SignUp by ID");
             System.out.println("3. Add SignUp");
@@ -38,7 +38,7 @@ public class SignUp {
 
             switch(input){
                 case 0:
-                    System.out.println("Going back to Main Menu");
+                    System.out.println("Going back to Information Processing Menu");
                     return;
                 case 1:
                     viewAllSignUps();

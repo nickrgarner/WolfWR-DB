@@ -34,7 +34,7 @@ public class Transaction {
     do {
       System.out.println("Transaction Menu");
       System.out.println();
-      System.out.println("0. Return to Main Menu");
+      System.out.println("0. Return to Information Processing Menu");
       System.out.println("1. View All Transactions");
       System.out.println("2. View Transaction by ID");
       System.out.println("3. Add Transaction");
@@ -47,7 +47,7 @@ public class Transaction {
 
       switch(input) {
         case 0:
-          System.out.println("Going back to Main Menu");
+          System.out.println("Going back to Information Processing Menu");
           return;
         case 1:
           viewAllTransactions();
@@ -411,11 +411,12 @@ public class Transaction {
      */
     public static void transactionTotal() throws ParseException, ClassNotFoundException, SQLException{
       do {
-          System.out.println("In order to go back to Main Menu, enter 0");
+          System.out.println("In order to go back to Billing Menu, enter 0");
           System.out.println("Generate total price for each transaction, enter 1");
           input = scan.nextInt();
 
           if(input == 0){
+              System.out.println("Going back to Billing Menu");
               return;
           } else if (input == 1){
               System.out.println("In order to generate the total price of a transaction, please enter a transactionID");
@@ -426,7 +427,6 @@ public class Transaction {
               if(!rs.next()){
                 System.out.println("There is no transaction with this transactionID");
               } else{
-                  rs.next();
                   System.out.println("Total Price for Transaction: $" + rs.getInt("SUM(total)"));
               }
               rs.close();
@@ -435,6 +435,41 @@ public class Transaction {
               System.out.println("Invalid input");
           }
       } while(input != 0);
+  }
+
+  /**
+   * Prompts user for Transaction ID and then checks all products for applicable discount. Discounts are automatically applied when transaction is created, this is just listing them.
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws ParseException
+   */
+  public static void checkDiscounts() throws ClassNotFoundException, SQLException, ParseException
+  {
+    do{
+      System.out.println("0. Return to Billing Menu");
+      System.out.println("1. Check Transaction for applicable Discounts");
+      input = scan.nextInt();
+
+      if (input == 0) {
+        System.out.println("Going back to Billing Menu");
+        return;
+      } else if (input == 1) {
+        System.out.println("Please input the Transaction ID to check for discounts: ");
+        int transactionID = scan.nextInt();
+        ResultSet rs = TransactionSQL.checkDiscounts(transactionID);
+
+        if (rs.next()) {
+          System.out.println("Discounts applied:");
+          do {
+            System.out.println("Transaction: " + rs.getInt("transactionID") + ", Product: " + rs.getInt("productID") + ", Discount: " + rs.getDouble("priceReduction") + "%");
+          } while (rs.next());
+        } else {
+          System.out.println("No applicable Discounts");
+        }
+      } else {
+        System.out.println("Invalid input");
+      }
+    } while (input != 0);
   }
 
   /**

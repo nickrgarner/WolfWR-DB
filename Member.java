@@ -29,7 +29,7 @@ public class Member{
         do{
             System.out.println("Member Menu");
             System.out.println();
-            System.out.println("0. Return to Main Menu");
+            System.out.println("0. Return to Information Processing Menu");
             System.out.println("1. View All Members");
             System.out.println("2. View Member by ID");
             System.out.println("3. Add Member");
@@ -42,7 +42,7 @@ public class Member{
 
             switch(input){
                 case 6:
-                    System.out.println("Going back to Main Menu");
+                    System.out.println("Going back to Information Processing Menu");
                     return;
                 case 1:
                     viewAllMembers();
@@ -219,11 +219,12 @@ public class Member{
      */
     public static void rewardCheck() throws ParseException, ClassNotFoundException, SQLException{
         do {
-            System.out.println("In order to go back to Main Menu, enter 0");
+            System.out.println("In order to go back to Billing Menu, enter 0");
             System.out.println("Generate reward check for platinum member, enter 1");
             input = scan.nextInt();
 
             if(input == 0){
+                System.out.println("Going back to Billing Menu");
                 return;
             } else if (input == 1){
                 System.out.println("In order to generate the reward check, please enter a memberID");
@@ -234,7 +235,6 @@ public class Member{
                 if(!rs.next()){
                     System.out.println("This member has no rewards");
                 } else{
-                    rs.next();
                     System.out.println("Reward Check for Member " + rs.getInt("memberID") + ": " + rs.getInt("rewardAmount"));  
                 }
                 rs.close();

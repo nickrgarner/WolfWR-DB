@@ -165,7 +165,6 @@ public class MainMenu {
             System.out.println("2. Generate reward checks for platinum customers that are due at the end of the year");
             System.out.println("3. For each transaction, calculate the total price");
             System.out.println("4. Check if any item is on sale or not");
-            System.out.println("5. If item is on sale, apply discounts according to the discount information.");
 
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
@@ -184,25 +183,8 @@ public class MainMenu {
                     Transaction.transactionTotal();
                     break;
                 case 4:
-                    //Make method for this operation
-                        //SELECT Transaction.transactinID, Transaction.productID, Discount.priceReduction
-                        //FROM Transaction
-                        //INNER JOIN Discount
-                        //ON Transaction.productID = Discount.productID
-                        //WHERE Transaction.transactionID = ?
-                        //AND Discount.startDate <= Transaction.date
-                        //AND Discount.endDate >= Transaction.date;
-
+                    Transaction.checkDiscounts();
                     break;
-                case 5:
-                    //Make method for this operation
-                        //UPDATE Transaction
-                        //SET total = total - quantity * 10.00
-                        //WHERE transactionID = ?
-                        //AND productID = ?
-
-                    break;
-
                 default:
                     System.out.println("Invalid input");
                     break;

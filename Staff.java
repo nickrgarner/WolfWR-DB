@@ -34,7 +34,7 @@ public class Staff {
     do {
       System.out.println("Staff Menu");
       System.out.println();
-      System.out.println("0. Return to Main Menu");
+      System.out.println("0. Return to Information Processing Menu");
       System.out.println("1. View All Staff");
       System.out.println("2. View Staff by ID");
       System.out.println("3. Add Staff");
@@ -47,7 +47,7 @@ public class Staff {
 
       switch(input) {
         case 0:
-          System.out.println("Going back to Main Menu");
+          System.out.println("Going back to Information Processing Menu");
           return;
         case 1:
           viewAllStaff();
