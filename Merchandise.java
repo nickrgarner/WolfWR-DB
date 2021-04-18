@@ -237,6 +237,7 @@ public class Merchandise {
             scan.nextLine();
 
             if(input == 0){
+                System.out.println("Going back to previous menu");
                 resetAttributes();
                 return;
             }
@@ -549,7 +550,11 @@ public class Merchandise {
                 break;
             case 8:
                 System.out.println("Enter Expiration Date in format YYYY-MM-DD:");
-                expiration = Date.valueOf(scan.nextLine());
+                try{
+                    expiration = Date.valueOf(scan.nextLine());
+                } catch (IllegalArgumentException e) {
+                    expiration = null;
+                }
                 break;
             case 9:
                 System.out.println("Enter Supplier ID:");

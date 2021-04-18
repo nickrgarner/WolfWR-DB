@@ -235,7 +235,7 @@ public class Member{
                 if(!rs.next()){
                     System.out.println("This member has no rewards");
                 } else{
-                    System.out.println("Reward Check for Member " + rs.getInt("memberID") + ": " + rs.getInt("rewardAmount"));  
+                    System.out.println("Reward Check for Member " + memberID + ": $" + rs.getInt("rewardAmount"));  
                 }
                 rs.close();
 
