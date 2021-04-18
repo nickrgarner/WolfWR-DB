@@ -251,9 +251,10 @@ public class Merchandise {
      * to complete the query
      */
     public static void returnInventory() throws ParseException, ClassNotFoundException, SQLException{
-        int memberID = -1;
-        int transactionID = -1;
         do {
+            int memberID = -1;
+            int transactionID = -1;
+            int transactionQuantity = -1;
             System.out.println("In order to go back to Main Menu, enter 0");
             System.out.println("Return inventory into database, enter 1");
             input = scan.nextInt();
@@ -270,12 +271,14 @@ public class Merchandise {
                 storeID = scan.nextInt();
 
                 System.out.println("Enter Member ID:");
-                storeID = scan.nextInt();
+                memberID = scan.nextInt();
 
                 System.out.println("Enter Transaction ID:");
-                storeID = scan.nextInt();
+                transactionID = scan.nextInt();
 
-                MerchandiseSQL.returnInventory(productID, supplierID, storeID, memberID, transactionID);
+                ResultSet rs = TransactionSQL.viewTransaction(transactionID);
+                transactionQuantity = rs.getInt("quantity");
+                MerchandiseSQL.returnInventory(productID, supplierID, storeID, memberID, transactionID, transactionQuantity);
 
                 resetAttributes();
             } else{

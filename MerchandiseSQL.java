@@ -263,7 +263,7 @@ public class MerchandiseSQL {
      * @throws SQLException
      * @throws ParseException
      */
-    public static void returnInventory(int productID, int supplierID, int storeID, int memberID, int transactionID) throws SQLException, ParseException{
+    public static void returnInventory(int productID, int supplierID, int storeID, int memberID, int transactionID, int transactionQuantity) throws SQLException, ParseException{
         //Object that represents a precompiled SQL statement
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
@@ -271,10 +271,11 @@ public class MerchandiseSQL {
 
         int id = 0;
         try{
-            ps = connection.prepareStatement("Update Merchandise SET quantity = quantity + 1 WHERE productID = ? AND supplierID = ? AND storeID = ?;");
-            ps.setInt(1,productID);
-            ps.setInt(2, supplierID);
-            ps.setInt(3,storeID);
+            ps = connection.prepareStatement("Update Merchandise SET quantity = quantity + ? WHERE productID = ? AND supplierID = ? AND storeID = ?;");
+            ps.setInt(1, transactionQuantity);
+            ps.setInt(2,productID);
+            ps.setInt(3, supplierID);
+            ps.setInt(4,storeID);
             
             
             id = ps.executeUpdate();
