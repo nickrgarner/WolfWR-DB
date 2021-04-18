@@ -424,10 +424,10 @@ public class Transaction {
 
               rs = TransactionSQL.transactionTotal(transactionID);
 
-              if(!rs.next()){
+              if(!rs.next() || rs.getDouble("SUM(total)") == 0){
                 System.out.println("There is no transaction with this transactionID");
               } else{
-                  System.out.println("Total Price for Transaction: $" + rs.getInt("SUM(total)"));
+                System.out.println("Total Price for Transaction: $" + rs.getDouble("SUM(total)"));
               }
               rs.close();
 
