@@ -26,7 +26,7 @@ public class Supplier {
         do{
             System.out.println("Supplier Menu");
             System.out.println();
-            System.out.println("0. Return to Main Menu");
+            System.out.println("0. Return to Information Processing Menu");
             System.out.println("1. View All Suppliers");
             System.out.println("2. View Supplier by ID");
             System.out.println("3. Add Supplier");
@@ -39,7 +39,7 @@ public class Supplier {
 
             switch(input){
                 case 0:
-                    System.out.println("Going back to Main Menu");
+                    System.out.println("Going back to Information Processing Menu");
                     return;
                 case 1:
                     viewAllSuppliers();
@@ -301,8 +301,8 @@ public class Supplier {
      */
     public static void createSupplierBill() throws ClassNotFoundException, SQLException, ParseException {
         do{
-            System.out.println("In order to go back to billing and transaction, enter 0");
-            System.out.println("Please enter a supplier ID to generate a supplier bill");
+            System.out.println("In order to go back to Billing Menu, enter 0");
+            System.out.println("Please enter a Supplier ID to generate a Supplier bill");
             System.out.println();
             System.out.println("Supplier ID: ");
 
@@ -330,11 +330,10 @@ public class Supplier {
                   System.out.println();
                   rs.close();
                 }
-
             } else if(input < 0){
                 System.out.println("Invalid input");
             } else if(input == 0){
-                System.out.println("Going back to Supplier Menu");
+                System.out.println("Going back to Billing Menu");
                 return;
             }
         } while(input != 0);

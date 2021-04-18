@@ -24,7 +24,7 @@ public class Merchandise {
         do{
             System.out.println("Merchandise Menu");
             System.out.println();
-            System.out.println("0. Return to Main Menu");
+            System.out.println("0. Return to Information Processing Menu");
             System.out.println("1. View All Merchandise");
             System.out.println("2. View Merchandise by ID");
             System.out.println("3. Add Merchandise");
@@ -37,7 +37,7 @@ public class Merchandise {
 
             switch(input){
                 case 0:
-                    System.out.println("Going back to Main Menu");
+                    System.out.println("Going back to Information Processing Menu");
                     return;
                 case 1:
                     viewAllMerchandise();
@@ -120,7 +120,7 @@ public class Merchandise {
     public static void viewStockReport() throws ClassNotFoundException, SQLException, ParseException {
       do{
           System.out.println("Merchandise Stock Report Menu");
-          System.out.println("0. Go back to Merchandise Stock Report Menu:");
+          System.out.println("0. Go back to Reports Menu:");
           System.out.println("1. Merchandise Stock Report For A Store");
           System.out.println("2. Merchandise Stock Report For A Product");
 
@@ -129,7 +129,7 @@ public class Merchandise {
           System.out.println();
           switch(input){
               case 0:
-                  System.out.println("Going back to Merchandise Report Menu");
+                  System.out.println("Going back to Reports Menu");
                   return;
               case 1:
                   storeStockReport();
@@ -343,10 +343,11 @@ public class Merchandise {
      */
     public static void newInventory() throws ParseException, ClassNotFoundException, SQLException{
         do {
-            System.out.println("In order to go back to Main Menu, enter 0");
+            System.out.println("In order to go back to Maintain Inventory Menu, enter 0");
             System.out.println("Input new inventory into database, enter 1");
             input = scan.nextInt();
             if(input == 0){
+                System.out.println("Going back to Maintain Inventory Menu");
                 return;
             }
             else if(input == 1){
@@ -367,10 +368,11 @@ public class Merchandise {
             int memberID = -1;
             int transactionID = -1;
             int transactionQuantity = -1;
-            System.out.println("In order to go back to Main Menu, enter 0");
+            System.out.println("In order to go back to Maintain Inventory Menu, enter 0");
             System.out.println("Return inventory into database, enter 1");
             input = scan.nextInt();
             if(input == 0){
+                System.out.println("Going back to Maintain Inventory Menu");
                 return;
             } else if (input == 1){
                 System.out.println("In order to begin the return, please enter a productID");
@@ -406,7 +408,7 @@ public class Merchandise {
      */
     public static void transferInventory() throws ParseException, ClassNotFoundException, SQLException{
         do {
-            System.out.println("In order to go back to Main Menu, enter 0");
+            System.out.println("In order to go back to Maintain Inventory Menu, enter 0");
             System.out.println("Transfer inventory between stores, enter 1");
             input = scan.nextInt();
 
@@ -414,6 +416,7 @@ public class Merchandise {
             int xferQuantity = -1;
 
             if(input == 0){
+                System.out.println("Going back to Maintain Inventory Menu");
                 return;
             } else if (input == 1){
                 System.out.println("In order to begin the transfer, please enter a productID");
