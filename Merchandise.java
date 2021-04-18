@@ -82,19 +82,30 @@ public class Merchandise {
      */
     public static void viewMerchandise() throws ClassNotFoundException, SQLException, ParseException {
         do{
-            System.out.println("In order to go back to Merchandise Menu, enter 0");
-            System.out.println("Please enter a product ID to view a merchandise");
-            System.out.println();
-            System.out.println("Product ID: ");
+            System.out.println("0. Return to Merchandise Menu");
+            System.out.println("1. View a merchandise record");
 
             input = scan.nextInt();
             scan.nextLine();
 
             if(input > 0){
-                rs = MerchandiseSQL.viewMerchandise(input);
+                System.out.println("Please enter the following to view a merchandise");
+                System.out.println();
+                System.out.println("Product ID: ");
+                int productID = scan.nextInt();
+                scan.nextLine();
+
+                System.out.println("Supplier ID: ");
+                int supplierID = scan.nextInt();
+                scan.nextLine();
+
+                System.out.println("Store ID: ");
+                int storeID = scan.nextInt();
+                scan.nextLine();
+
+                rs = MerchandiseSQL.viewMerchandise(productID, supplierID, storeID);
                 printMerchandise(rs);
                 rs.close();
-
             } else if(input < 0){
                 System.out.println("Invalid input");
             } else if(input == 0){
@@ -180,7 +191,7 @@ public class Merchandise {
             scan.nextLine();
 
             if(input > 0){
-                rs = MerchandiseSQL.viewMerchandise(input);
+                rs = MerchandiseSQL.viewMerchandiseAllStores(input);
                 System.out.println("** Stock Report for Product **");
                 printMerchandise(rs);
                 rs.close();
@@ -241,15 +252,24 @@ public class Merchandise {
     public static void editMerchandise() throws ParseException, ClassNotFoundException, SQLException{
         int input = 0;
         do{
-            System.out.println("In order to go back to Merchandise Menu, enter 0");
-            System.out.println("Please enter a product ID to edit a merchandise");
+            System.out.println("0. Go back to Merchandise Menu");
+            System.out.println("1. Edit a Merchandise record");
 
             input = scan.nextInt();
             scan.nextLine();
             System.out.println();
             //productID must be a number greater than 0 so that the application can search for that merchandise.
             if(input > 0){
-                rs = MerchandiseSQL.viewMerchandise(productID);
+                System.out.println("Please enter Product ID: ");
+                productID = scan.nextInt();
+
+                System.out.println("Please enter Supplier ID: ");
+                supplierID = scan.nextInt();
+
+                System.out.println("Please enter Store ID: ");
+                storeID = scan.nextInt();
+
+                rs = MerchandiseSQL.viewMerchandise(productID, supplierID, storeID);
                 //Checks if viewMerchandise was able to find an existing Merchandise
                 if(!rs.next()){
                     System.out.println("Merchandise does not exist");
@@ -388,8 +408,11 @@ public class Merchandise {
         do {
             System.out.println("In order to go back to Main Menu, enter 0");
             System.out.println("Transfer inventory between stores, enter 1");
-            int storeID2 = -1;
             input = scan.nextInt();
+
+            int storeID2 = -1;
+            int xferQuantity = -1;
+
             if(input == 0){
                 return;
             } else if (input == 1){
@@ -399,11 +422,16 @@ public class Merchandise {
                 System.out.println("Enter Supplier ID:");
                 supplierID = scan.nextInt();
 
-                System.out.println("Enter Store ID you want to transfer the product:");
+                System.out.println("Enter Store ID you want to transfer the product FROM:");
+                storeID = scan.nextInt();
+
+                System.out.println("Enter Store ID you want to transfer the product TO:");
                 storeID2 = scan.nextInt();
+                
+                System.out.println("Enter the quantity you want to transfer:");
+                xferQuantity = scan.nextInt();
 
-
-                rs = MerchandiseSQL.viewMerchandise(productID);
+                rs = MerchandiseSQL.viewMerchandise(productID, supplierID, storeID);
                 //Checks if viewMerchandise was able to find an existing Merchandise
                 if(!rs.next()){
                     System.out.println("Merchandise does not exist");
@@ -415,10 +443,9 @@ public class Merchandise {
                     marketPrice = rs.getDouble("marketPrice");
                     productionDate = rs.getDate("productionDate");
                     expiration = rs.getDate("expiration");
-                    storeID = rs.getInt("storeID"); 
                 }
 
-                MerchandiseSQL.transferInventory(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID, storeID2);
+                MerchandiseSQL.transferInventory(productID, storeID, name, quantity, buyPrice, marketPrice, productionDate, expiration, supplierID, storeID2, xferQuantity);
 
                 resetAttributes();
             } else{
@@ -514,11 +541,11 @@ public class Merchandise {
                 marketPrice = scan.nextDouble();
                 break;
             case 7:
-                System.out.println("Enter Production Date:");
+                System.out.println("Enter Production Date in format YYYY-MM-DD:");
                 productionDate = Date.valueOf(scan.nextLine());
                 break;
             case 8:
-                System.out.println("Enter Expiration Date:");
+                System.out.println("Enter Expiration Date in format YYYY-MM-DD:");
                 expiration = Date.valueOf(scan.nextLine());
                 break;
             case 9:
@@ -544,7 +571,7 @@ public class Merchandise {
                     e.getStackTrace();
                     break;
                 }
-                rs = MerchandiseSQL.viewMerchandise(productID);
+                rs = MerchandiseSQL.viewMerchandise(productID, supplierID, storeID);
                 printMerchandise(rs);
                 resetAttributes();
                 break;
