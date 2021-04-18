@@ -107,7 +107,7 @@ public class MemberSQL{
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
     /**
@@ -156,7 +156,7 @@ public class MemberSQL{
         catch (SQLException e) {
             System.out.println("SQL Exception");
             connection.rollback();
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
     /**
@@ -178,7 +178,7 @@ public class MemberSQL{
             }
         } catch (SQLException e) {
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
@@ -217,7 +217,7 @@ public class MemberSQL{
         } 
         catch(SQLException e){
             System.out.println("SQL Exception");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             return null;
         }
         return resultSet;

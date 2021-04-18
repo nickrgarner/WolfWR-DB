@@ -161,10 +161,10 @@ public class MainMenu {
         do{
             System.out.println("Maintain Billing and Transactions Menu");
             System.out.println("0. Go back to Main Menu:");
-            System.out.println("1. Create or generate bills that are to be paid to a specific supplier");
-            System.out.println("2. Generate reward checks for platinum customers that are due at the end of the year");
-            System.out.println("3. For each transaction, calculate the total price");
-            System.out.println("4. Check if any item is on sale or not");
+            System.out.println("1. Generate Supplier Bill");
+            System.out.println("2. Generate Member Reward Check");
+            System.out.println("3. Calculate Transaction Totals");
+            System.out.println("4. Check Transaction for Discounts");
 
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
