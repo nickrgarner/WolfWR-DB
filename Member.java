@@ -237,7 +237,7 @@ public class Member{
                 } else if(!rs.next()){
                     System.out.println("This member has no rewards");
                 } else{
-                    System.out.println("Reward Check for Member " + memberID + ": $" + rs.getInt("rewardAmount"));
+                    System.out.println("Reward Check for Member " + memberID + ": $" + rs.getDouble("rewardAmount"));
                 }
             } else{
                 System.out.println("Invalid input");
