@@ -189,8 +189,6 @@ public class MainMenu {
                     return;
                 case 1:
                     Supplier.createSupplierBill();
-                    //Make a method for this operation
-                        //SELECT amountOweed FROM Supplier WHERE Supplier = ?
                     break;
                 case 2:
                     //Make method for this operation

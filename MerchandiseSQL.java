@@ -124,10 +124,9 @@ public class MerchandiseSQL {
             ps.setInt(9, supplierID);
 
             id = ps.executeUpdate();
-            connection.commit();
             ps.close();
 
-            double newAmountOwed = quantity * marketPrice;
+            double newAmountOwed = quantity * buyPrice;
             ps = connection.prepareStatement("UPDATE Supplier SET amountOwed = amountOwed + ? WHERE supplierID = ?;");
             ps.setDouble(1, newAmountOwed);
             ps.setInt(2, supplierID);
