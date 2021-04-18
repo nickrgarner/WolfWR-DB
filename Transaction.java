@@ -427,7 +427,7 @@ public class Transaction {
                 System.out.println("There is no transaction with this transactionID");
               } else{
                   rs.next();
-                  System.out.println("Total Price for Transaction: " + rs.getInt("SUM(total)"));
+                  System.out.println("Total Price for Transaction: $" + rs.getInt("SUM(total)"));
               }
               rs.close();
 
