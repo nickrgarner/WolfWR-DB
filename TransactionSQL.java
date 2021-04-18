@@ -59,7 +59,7 @@ public class TransactionSQL {
   }
   
   /**
-   * Adds tuple to Transaction relation with the given attribute values
+   * Adds tuple to Transaction relation with the given attribute values. Searches for applicable discount and applies to price if found.
    * @param transactionID value to store
    * @param storeID value to store
    * @param memberID value to store
@@ -75,9 +75,24 @@ public class TransactionSQL {
   public static void addTransaction(int transactionID, int storeID, int memberID, int cashierID, Date date, int productID, double price, int quantity, double total) throws ParseException, SQLException
   {
     PreparedStatement ps = null;
+    ResultSet rs = null;
     int id = 0;
 
     try {
+      ps = connection.prepareStatement("SELECT * FROM Discount WHERE productID = ? AND ? BETWEEN startDate AND endDate;");
+      ps.setInt(1, productID);
+      ps.setDate(2, date);
+      rs = ps.executeQuery();
+      if (!rs.next()) {
+        System.out.println("No discount available");
+      } else {
+        double priceReduction = rs.getDouble("priceReduction");
+        price = (100.0 - priceReduction) / 100.0 * price;
+        total = price * quantity;
+        System.out.println("Discount of " + priceReduction + "% applied");
+      }
+      ps.close();
+
       ps = connection.prepareStatement("INSERT INTO Transaction VALUES (?,?,?,?,?,?,?,?,?);");
       ps.setInt(1, transactionID);
       ps.setInt(2, storeID);
