@@ -204,7 +204,9 @@ public class MemberSQL{
             memberSearch = connection.prepareStatement("SELECT * FROM Member WHERE memberID = ?;");
             memberSearch.setInt(1, memberID);
             member = memberSearch.executeQuery();
-            member.next();
+            if (!member.next()) {
+                return null;
+            }
             boolean isPlatinum = member.getString("level").toLowerCase().equals("platinum");
 
             if (isPlatinum) {
