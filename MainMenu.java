@@ -205,11 +205,11 @@ public class MainMenu {
         do{
             System.out.println("Reports Menu");
             System.out.println("0. Go back to Main Menu:");
-            System.out.println("1. Total sales report by day, month, or year");
-            System.out.println("2. Sales growth report for a specific store for a given time period");
-            System.out.println("3. Merchandise stock report for each store or for a certain product");
-            System.out.println("4. Customer growth report by month or by year");
-            System.out.println("5. Customer purchase report");
+            System.out.println("1. Total Sales Report by day, month, or year");
+            System.out.println("2. Sales Growth Report for Specific Store");
+            System.out.println("3. Merchandise Stock report");
+            System.out.println("4. Customer Growth Report");
+            System.out.println("5. Customer Purchase Report");
 
             System.out.print("Please choose one of the options above: ");
             input = scan.nextInt();
