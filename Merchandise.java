@@ -392,6 +392,7 @@ public class Merchandise {
                 transactionID = scan.nextInt();
 
                 ResultSet rs = TransactionSQL.viewTransaction(transactionID);
+                rs.next();
                 transactionQuantity = rs.getInt("quantity");
                 MerchandiseSQL.returnInventory(productID, supplierID, storeID, memberID, transactionID, transactionQuantity);
 

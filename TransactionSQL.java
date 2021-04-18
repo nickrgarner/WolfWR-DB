@@ -113,6 +113,22 @@ public class TransactionSQL {
       } else {
         System.out.println("Transaction not added.");
       }
+
+      // Update rewards if platinum member
+      PreparedStatement memberSearch = connection.prepareStatement("SELECT * FROM Member WHERE memberID = ?;");
+      memberSearch.setInt(1, memberID);
+      ResultSet member = memberSearch.executeQuery();
+      member.next();
+      boolean isPlatinum = member.getString("level").toLowerCase().equals("platinum");
+
+      if (isPlatinum) {
+        ps = connection.prepareStatement("UPDATE Member SET rewardAmount = rewardAmount + ?;");
+        ps.setDouble(1, 0.02 * total);
+        id = ps.executeUpdate();
+        if (id > 0) {
+          System.out.println("Reward amount of $" + 0.02 * total + " earned");
+        }
+      }
     } catch (SQLException e) {
       System.out.println("SQL Exception: " + e.getStackTrace());
       connection.rollback();
@@ -272,7 +288,7 @@ public class TransactionSQL {
     ResultSet returnSet = null;
 
     try {
-      ps = connection.prepareStatement("SELECT Transaction.transactionID, Transaction.productID, Discount.priceReduction FROM Transaction INNER JOIN Discount ON Transaction.productID = Discount.productID WHERE Transaction.productID = ? AND Transaction.date BETWEEN Discount.startDate AND Discount.endDate;");
+      ps = connection.prepareStatement("SELECT Transaction.transactionID, Transaction.productID, Discount.priceReduction FROM Transaction INNER JOIN Discount ON Transaction.productID = Discount.productID WHERE Transaction.transactionID = ? AND Transaction.date BETWEEN Discount.startDate AND Discount.endDate;");
       ps.setInt(1, transactionID);
       returnSet = ps.executeQuery();
       ps.close();
