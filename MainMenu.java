@@ -86,7 +86,7 @@ public class MainMenu {
                     Staff.staffMenu();
                     break;
                 case 3:
-                    // SignUp.signUpMenu();
+                    SignUp.signUpMenu();
                     break;
                 case 4:
                     Member.memberMenu();
