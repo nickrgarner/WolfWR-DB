@@ -181,9 +181,7 @@ public class MainMenu {
                     Member.rewardCheck();
                     break;
                 case 3:
-                    //Make method for this operation
-                        //SELECT SUM(total) FROM Transaction WHERE transactionID = ?
-
+                    Transaction.transactionTotal();
                     break;
                 case 4:
                     //Make method for this operation

@@ -229,12 +229,22 @@ public class Member{
                 System.out.println("In order to generate the reward check, please enter a memberID");
                 memberID = scan.nextInt();
 
-                MemberSQL.rewardCheck(memberID);
+                rs = MemberSQL.rewardCheck(memberID);
+
+                if(!rs.next()){
+                    System.out.println("This member has no rewards");
+                } else{
+                    rs.next();
+                    System.out.println("Reward Check for Member " + rs.getInt("memberID") + ": " + rs.getInt("rewardAmount"));  
+                }
+                rs.close();
+
             } else{
                 System.out.println("Invalid input");
             }
         } while(input != 0);
     }
+    
     /**
      * Method is used in all the methods above to print out the information of a member. This method takes in 
      * a ResultSet and then prints out all the attributes each member of the ResultSet.

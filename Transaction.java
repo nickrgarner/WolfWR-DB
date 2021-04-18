@@ -406,6 +406,38 @@ public class Transaction {
   }
 
   /**
+     * Method is called in the MainMenu file under maintainBillingTransactions. This method will prompt user
+     * for a transactionID to be passed to transactionTotal in TransactionSQL to generate the query.
+     */
+    public static void transactionTotal() throws ParseException, ClassNotFoundException, SQLException{
+      do {
+          System.out.println("In order to go back to Main Menu, enter 0");
+          System.out.println("Generate total price for each transaction, enter 1");
+          input = scan.nextInt();
+
+          if(input == 0){
+              return;
+          } else if (input == 1){
+              System.out.println("In order to generate the total price of a transaction, please enter a transactionID");
+              transactionID = scan.nextInt();
+
+              rs = TransactionSQL.transactionTotal(transactionID);
+
+              if(!rs.next()){
+                System.out.println("There is no transaction with this transactionID");
+              } else{
+                  rs.next();
+                  System.out.println("Total Price for Transaction: " + rs.getInt("SUM(total)"));
+              }
+              rs.close();
+
+          } else{
+              System.out.println("Invalid input");
+          }
+      } while(input != 0);
+  }
+
+  /**
    * Resets Transaction attributes back to default.
    */
   public static void resetAttributes()
