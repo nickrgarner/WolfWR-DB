@@ -137,7 +137,7 @@ public class Transaction {
       System.out.println();
 
       if (input > 0) {
-        rs = TransactionSQL.viewTransaction(transactionID);
+        rs = TransactionSQL.viewTransaction(input);
         if (!rs.next()) {
           System.out.println("Transaction ID does not exist.");
         } else {

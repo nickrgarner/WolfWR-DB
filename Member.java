@@ -41,7 +41,7 @@ public class Member{
             input = scan.nextInt();
 
             switch(input){
-                case 6:
+                case 0:
                     System.out.println("Going back to Information Processing Menu");
                     return;
                 case 1:

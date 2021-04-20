@@ -133,7 +133,7 @@ public class Discount {
       System.out.println();
 
       if (input > 0) {
-        rs = DiscountSQL.viewDiscount(discountID);
+        rs = DiscountSQL.viewDiscount(input);
         if (!rs.next()) {
           System.out.println("Discount ID does not exist.");
         } else {
