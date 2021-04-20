@@ -108,7 +108,7 @@ public class StoreSQL {
     int id = 0;
     
     try {
-      ps = connection.prepareStatement("UPDATE STORE SET managerID=?, address=?,phone=? WHERE storeID=?;");
+      ps = connection.prepareStatement("UPDATE Store SET managerID=?, address=?, phone=? WHERE storeID=?;");
       ps.setInt(1, managerID);
       ps.setString(2, address);
       ps.setString(3, phone);

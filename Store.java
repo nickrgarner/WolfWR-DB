@@ -130,7 +130,7 @@ public class Store {
       System.out.println();
 
       if (input > 0) {
-        rs = StoreSQL.viewStore(storeID);
+        rs = StoreSQL.viewStore(input);
         if (!rs.next()) {
           System.out.println("Store ID does not exist.");
         } else {

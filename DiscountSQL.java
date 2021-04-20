@@ -111,7 +111,7 @@ public class DiscountSQL {
     int id = 0;
 
     try {
-      ps = connection.prepareStatement("UPDATE Discount SET productID=?, priceReducation=?, startDate=?, endDate=? WHERE discountID=?;");
+      ps = connection.prepareStatement("UPDATE Discount SET productID=?, priceReduction=?, startDate=?, endDate=? WHERE discountID=?;");
       ps.setInt(1, productID);
       ps.setDouble(2, priceReduction);
       ps.setDate(3, startDate);

@@ -136,7 +136,7 @@ public class Staff {
       System.out.println();
 
       if (input > 0) {
-        rs = StaffSQL.viewStaff(staffID);
+        rs = StaffSQL.viewStaff(input);
         if (!rs.next()) {
           System.out.println("Staff ID does not exist.");
         } else {

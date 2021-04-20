@@ -142,7 +142,7 @@ public class Supplier {
             System.out.println();
             //SupplierID must be a number greater than 0 so that the application can search for that supplier.
             if(input > 0){
-                rs = SupplierSQL.viewSupplier(supplierID);
+                rs = SupplierSQL.viewSupplier(input);
                 //Checks if viewSupplier was able to find an existing Supplier
                 if(!rs.next()){
                     System.out.println("Supplier does not exist");

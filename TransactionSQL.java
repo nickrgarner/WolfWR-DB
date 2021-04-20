@@ -79,6 +79,7 @@ public class TransactionSQL {
     int id = 0;
 
     try {
+      // Check for Discount
       ps = connection.prepareStatement("SELECT * FROM Discount WHERE productID = ? AND ? BETWEEN startDate AND endDate;");
       ps.setInt(1, productID);
       ps.setDate(2, date);
@@ -93,6 +94,7 @@ public class TransactionSQL {
       }
       ps.close();
 
+      // Insert transaction tuple
       ps = connection.prepareStatement("INSERT INTO Transaction VALUES (?,?,?,?,?,?,?,?,?);");
       ps.setInt(1, transactionID);
       ps.setInt(2, storeID);
@@ -113,6 +115,14 @@ public class TransactionSQL {
       } else {
         System.out.println("Transaction not added.");
       }
+
+      // Update store quantity
+      ps = connection.prepareStatement("UPDATE Merchandise SET quantity = quantity - ? WHERE storeID = ? AND productID = ?;");
+      ps.setInt(1, quantity);
+      ps.setInt(2, storeID);
+      ps.setInt(3, productID);
+      id = ps.executeUpdate();
+      ps.close();
 
       // Update rewards if platinum member
       PreparedStatement memberSearch = connection.prepareStatement("SELECT * FROM Member WHERE memberID = ?;");
